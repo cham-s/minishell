@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-void	ft_lstdelmem(t_list **alst, void (*del)(char **))
+void	ft_lstdelmem(t_list **alst, void (*del)(void **))
 {
 	t_list *victim;
 

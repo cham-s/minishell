@@ -25,7 +25,7 @@ typedef enum		e_bool
 
 typedef	struct		s_list
 {
-	char			*content;
+	void			*content;
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
@@ -85,7 +85,7 @@ char				*ft_strnjoin(char const *s1, char const *s2, size_t n);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
 char				*ft_itoa(int n);
-t_list				*ft_lstnew(char const *content, size_t content_size);
+t_list				*ft_lstnew(void const *content, size_t content_size);
 void				ft_lstdelone(t_list **alst, void (*del)(void*, size_t));
 void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstadd(t_list **alst, t_list *new);
@@ -97,7 +97,7 @@ void				ft_lstprint(t_list **alst);
 size_t				ft_lstlen(t_list *lst);
 void				ft_lstinsertafter(t_list *alst, t_list *new, size_t index);
 void				ft_lstremove(t_list *alst, size_t index);
-void				ft_lstdelmem(t_list **alst, void (*del)(char **));
+void				ft_lstdelmem(t_list **alst, void (*del)(void **));
 char				**ft_strsplitspc(char const *s1);
 char				*ft_strndup(const char *s1, size_t n);
 void				*ft_memdup(const void *s1, size_t len);
