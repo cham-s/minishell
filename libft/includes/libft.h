@@ -94,7 +94,7 @@ void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstnewref(void const *content, size_t content_size);
 void				ft_lstappend(t_list **alst, t_list *new);
 void				ft_lstprint(t_list **alst);
-size_t				ft_lstlen(t_list *lst);
+size_t				ft_lstlen(t_list **lst);
 void				ft_lstinsertafter(t_list *alst, t_list *new, size_t index);
 void				ft_lstremove(t_list *alst, size_t index);
 void				ft_lstdelmem(t_list **alst, void (*del)(void **));

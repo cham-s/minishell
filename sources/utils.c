@@ -12,59 +12,44 @@
 
 #include "minishell.h"
 
-void	envcpy(char **env, t_list **envlist)
+char	*join_with_chr(char *var, char *value, char c)
 {
-	t_env	new;
-	int		start;
+	char	*new;
+	size_t	varlen;
+	size_t	valuelen;
+
+	varlen = ft_strlen(var);
+	valuelen = ft_strlen(value);
+	new = ft_strnew(varlen + valuelen + 1);
+	if (!new)
+		return (NULL);
+	ft_strncpy(new, var, varlen);
+	new[varlen] = c;
+	ft_strncpy(new + varlen + 1, value, valuelen);
+	return (new);
+}
+
+char	**list_to_tab(t_list **envlist)
+{
+	char	**env;
+	t_list	*cur;
+	size_t	len;	
 	int		i;
 
+	cur = *envlist;
 	i = 0;
-	while (env[i])
+	len = ft_lstlen(envlist);
+	env = (char **)ft_memalloc(len);
+	if (!env)
+		return (NULL);
+	while (cur)
 	{
-		start = ft_strlenchr(env[i], '=');
-		new.key = ft_strndup(env[i], start);
-		new.value = ft_strdup(env[i] + start + 1);
-		ft_lstappend(envlist, ft_lstnew(&new, sizeof(t_env)));
+		env[i] = join_with_chr(T_ENV(cur)->var, T_ENV(cur)->value, '=');
+		cur = cur->next;
 		i++;
 	}
+	return (env);
 }
-
-void	ft_putenv(t_list **env)
-{
-	t_list *current;
-
-	current = *env;
-	while (current)
-	{
-		ft_putstr(((t_env*)current->content)->key);
-		ft_putchar('=');
-		ft_putendl(((t_env*)current->content)->value);
-		current = current->next;
-	}
-}
-
-/*
-char	**get_env_values(char **env, char *var)
-{
-	int		i;
-	char	**values;
-
-	i = 0;
-
-	while (env[i])
-	{
-		start = ft_strlenchr(env[i], '=');
-		if (!ft_strncmp(var, env[i], start))
-		{
-			values  = ft_strsplit(env[i] + start + 1, ':');
-			break ;
-		}
-		i++;
-	}
-
-	return (NULL);
-}
-*/
 
 void	free_tab(char **tab)
 {

@@ -12,14 +12,14 @@
 
 #include "libft.h"
 
-size_t		ft_lstlen(t_list *alst)
+size_t		ft_lstlen(t_list **alst)
 {
 	t_list *tmp;
 	size_t len;
 
-	tmp = alst;
+	tmp = *alst;
 	len = 0;
-	while (tmp->next)
+	while (tmp)
 	{
 		len++;
 		tmp = tmp->next;

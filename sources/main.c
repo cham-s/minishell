@@ -17,8 +17,23 @@ void	ft_delsplit(char **split)
 	free(split);
 }
 
-/*
-void run(char *cmd, char **argv, char **env_values)
+/* char	*check_path(char *cmd, char *path, char **path_tab) */	
+/* { */
+/* 	int		i; */
+/* 	char	*cmdpath; */
+
+/* 	i = 0; */
+/* 	while (path_tab[i]) */
+/* 	{ */
+/* 		cmdpath = join_with_chr(path_tab[i], cmd, '/'); */
+/* 		if (access(cmdpath, F_OK) != -1) */
+/* 			return (cmdpath); */
+/* 		i++; */
+/* 	} */
+/* 	return (NULL); */
+/* } */
+
+void	launch_exec(char *cmd, char **av, t_list **envlist)
 {
 	pid_t	child_pid;	
 	pid_t	t_pid = 0;	
@@ -27,7 +42,7 @@ void run(char *cmd, char **argv, char **env_values)
 	child_pid = fork();
 	if (child_pid == 0)
 	{
-		execve(cmd, argv, NULL);
+		execve(cmd, av, list_to_tab(envlist));
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(cmd, 2);
 		ft_putendl_fd(": no command found", 2);
@@ -39,26 +54,24 @@ void run(char *cmd, char **argv, char **env_values)
 		return ;
 	}
 }
-*/
 
 int     main (int ac, char **av, char **env)
 {
 	ac++;
 	av--;
-	//char *line;
+	char *line;
 	t_list *envlist;
+	t_cmd	cmd;
 
+	envlist = NULL;
 	envcpy(env, &envlist);
-	ft_putenv(&envlist);
-	/*
 	while (1)
 	{
 		ft_putstr("minishell>");
 		get_next_line(0, &line);
-		run(cmd, argv, env);
+		initcmd(get_env(&envlist, "PATH"), &cmd, line);
+		launch_exec(cmd.exepath, cmd.av, &envlist);
 		free(line);
-		ft_delsplit(argv);
 	}
-	*/
 	return (0);
 }
