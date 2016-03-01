@@ -29,28 +29,28 @@ char	*join_with_chr(char *var, char *value, char c)
 	return (new);
 }
 
-char	**list_to_tab(t_dict *env)
-{
-	char	**env;
-	t_list	*cur;
-	size_t	len;	
-	int		i;
+/* char	**list_to_tab(t_dict *env) */
+/* { */
+/* 	char	**env; */
+/* 	t_list	*cur; */
+/* 	size_t	len; */	
+/* 	int		i; */
 
-	cur = *envlist;
-	i = 0;
-	len = ft_lstlen(envlist);
-	env = (char **)ft_memalloc(len + 1);
-	if (!env)
-		return (NULL);
-	while (cur)
-	{
-		env[i] = join_with_chr(T_ENV(cur)->var, T_ENV(cur)->value, '=');
-		cur = cur->next;
-		i++;
-	}
-	env[i] = NULL;
-	return (env);
-}
+/* 	cur = *envlist; */
+/* 	i = 0; */
+/* 	len = ft_lstlen(envlist); */
+/* 	env = (char **)ft_memalloc(len + 1); */
+/* 	if (!env) */
+/* 		return (NULL); */
+/* 	while (cur) */
+/* 	{ */
+/* 		env[i] = join_with_chr(T_ENV(cur)->var, T_ENV(cur)->value, '='); */
+/* 		cur = cur->next; */
+/* 		i++; */
+/* 	} */
+/* 	env[i] = NULL; */
+/* 	return (env); */
+/* } */
 
 void	free_tab(char **tab)
 {

@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-t_dict	*envcpy(char **env, t_list **envlist)
+t_dict	*envcpy(char **env)
 {
 	t_dict	*envdict;
 	int		start;
@@ -8,7 +8,7 @@ t_dict	*envcpy(char **env, t_list **envlist)
 	char	*value;
 	int		i;
 
-	envdict = dict_create(void);
+	envdict = dict_create();
 	if (!envdict)
 		return (NULL);
 	i = 0;
@@ -17,38 +17,44 @@ t_dict	*envcpy(char **env, t_list **envlist)
 		start = ft_strlenchr(env[i], '=');
 		key = ft_strndup(env[i], start);
 		value = ft_strdup(env[i] + start + 1);
-		dict_insert(envidict, key, value);
+		dict_insert(envdict, key, value);
 		i++;
+		free(key);
+		free(value);
 	}
-	free(key);
-	free(value);
 	return (envdict);
 }
 
-void	ft_putenv(t_dict *envdict)
+void	ft_putenv(t_dict *env)
 {
-	t_list *current;
+	int		i;
+	t_elt	*e;
 
-	current = *env;
-	while (current)
+	i = 0;
+	while (i < env->size)
 	{
-		ft_putstr(((t_env *)current->content)->var);
-		ft_putchar('=');
-		ft_putendl(((t_env *)current->content)->value);
-		current = current->next;
+		e = env->table[i];
+		while (e)
+		{
+			ft_putstr(e->key);
+			ft_putchar('=');
+			ft_putendl(e->value);
+			e = e->next;
+		}
+		i++;
 	}
 }
 
-t_env	*get_env(t_list **envlist, char *var)
-{
-	t_list *current;
+/* t_env	*get_env(t_list **envlist, char *var) */
+/* { */
+/* 	t_list *current; */
 
-	current = *envlist;
-	while (current)
-	{
-		if (!ft_strcmp(((t_env *)current->content)->var, var))
-			return ((t_env *)current->content);
-		current = current->next;
-	}
-	return (NULL);
-}
+/* 	current = *envlist; */
+/* 	while (current) */
+/* 	{ */
+/* 		if (!ft_strcmp(((t_env *)current->content)->var, var)) */
+/* 			return ((t_env *)current->content); */
+/* 		current = current->next; */
+/* 	} */
+/* 	return (NULL); */
+/* } */

@@ -49,7 +49,7 @@ void	dict_destroy(t_dict *d)
 	free(d);
 }
 
-static unsigned long hash_function(const char *s) 
+unsigned long hash_function(const char *s) 
 {
 	unsigned const char	*ts;
 	unsigned long		h;
@@ -65,7 +65,7 @@ static unsigned long hash_function(const char *s)
 	return (h);
 }
 
-static void grow(t_dict *d)
+void grow(t_dict *d)
 {
 	t_dict *d2;
 	t_dict swap;
