@@ -44,17 +44,3 @@ void	ft_putenv(t_dict *env)
 		i++;
 	}
 }
-
-/* t_env	*get_env(t_list **envlist, char *var) */
-/* { */
-/* 	t_list *current; */
-
-/* 	current = *envlist; */
-/* 	while (current) */
-/* 	{ */
-/* 		if (!ft_strcmp(((t_env *)current->content)->var, var)) */
-/* 			return ((t_env *)current->content); */
-/* 		current = current->next; */
-/* 	} */
-/* 	return (NULL); */
-/* } */

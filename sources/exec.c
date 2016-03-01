@@ -1,13 +1,10 @@
 #include "minishell.h"
 
-void	launch_exec(t_cmd *cmd, t_list **envlist)
+void	launch_exec(t_cmd *cmd, char **env)
 {
 	pid_t	child_pid;	
 	pid_t	t_pid = 0;	
 	int		status;
-	char **env; 
-
-	env = list_to_tab(envlist);
 	child_pid = fork();
 	if (child_pid == 0)
 	{

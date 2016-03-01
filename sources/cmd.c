@@ -51,22 +51,22 @@ int		loop_paths(t_cmd *cmd, char **binlist)
 	return (0);
 }
 
-/* int		initcmd(t_env *path, t_cmd *cmd, char *line) */
-/* { */
-/* 	char	**bins; */
+int		initcmd(char *path, t_cmd *cmd, char *line)
+{
+	char	**bins;
 
-/* 	bins = ft_strsplit(path->value, ':'); */
-/* 	cmd->exepath = NULL; */
-/* 	cmd->av = ft_splitspaces(line); */
-/* 	if (cmd->av[0]) */
-/* 	{ */
-/* 		if ((cmd->error = check_exepath(cmd->av[0]) == 0)) */
-/* 		{ */
-/* 			cmd->exepath = ft_strdup(cmd->av[0]); */
-/* 			return (1); */
-/* 		} */
-/* 		else */
-/* 			return(loop_paths(cmd, bins)); */
-/* 	} */
-/* 	return (0); */
-/* } */
+	bins = ft_strsplit(path, ':');
+	cmd->exepath = NULL;
+	cmd->av = ft_splitspaces(line);
+	if (cmd->av[0])
+	{
+		if ((cmd->error = check_exepath(cmd->av[0]) == 0))
+		{
+			cmd->exepath = ft_strdup(cmd->av[0]);
+			return (1);
+		}
+		else
+			return(loop_paths(cmd, bins));
+	}
+	return (0);
+}
