@@ -1,23 +1,31 @@
 #include "minishell.h"
 
-void	envcpy(char **env, t_list **envlist)
+t_dict	*envcpy(char **env, t_list **envlist)
 {
-	t_env	new;
+	t_dict	*envdict;
 	int		start;
+	char	*key;
+	char	*value;
 	int		i;
 
+	envdict = dict_create(void);
+	if (!envdict)
+		return (NULL);
 	i = 0;
 	while (env[i])
 	{
 		start = ft_strlenchr(env[i], '=');
-		new.var = ft_strndup(env[i], start);
-		new.value = ft_strdup(env[i] + start + 1);
-		ft_lstappend(envlist, ft_lstnew(&new, sizeof(t_env)));
+		key = ft_strndup(env[i], start);
+		value = ft_strdup(env[i] + start + 1);
+		dict_insert(envidict, key, value);
 		i++;
 	}
+	free(key);
+	free(value);
+	return (envdict);
 }
 
-void	ft_putenv(t_list **env)
+void	ft_putenv(t_dict *envdict)
 {
 	t_list *current;
 

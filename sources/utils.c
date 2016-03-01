@@ -29,7 +29,7 @@ char	*join_with_chr(char *var, char *value, char c)
 	return (new);
 }
 
-char	**list_to_tab(t_list **envlist)
+char	**list_to_tab(t_dict *env)
 {
 	char	**env;
 	t_list	*cur;

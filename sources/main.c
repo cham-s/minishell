@@ -4,6 +4,8 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+extern char *g_tokens[5] = { "-", "~", ".", "..", NULL}
+
 void	ft_delsplit(char **split)
 {
 	int i;
@@ -19,6 +21,7 @@ void	ft_delsplit(char **split)
 
 int     main(int ac, char **av, char **env)
 {
+	
 	ac++;
 	av--;
 	char *line;
