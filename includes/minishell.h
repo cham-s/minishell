@@ -46,7 +46,7 @@ char				*dict_search(t_dict *d, const char *key);
 void				dict_delete(t_dict *d, const char *key);
 t_dict				*envcpy(char **env);
 void				ft_putenv(t_dict *env);
-char				**list_to_tab(t_list **envlist);
+char				**dict_to_tab(t_dict *env);
 char				*join_with_chr(char *var, char *value, char c);
 int					initcmd(t_elt *path, t_cmd *cmd, char *line);
 int					check_exepath(char *exepath);

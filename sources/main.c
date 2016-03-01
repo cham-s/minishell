@@ -20,8 +20,16 @@ int     main(int ac, char **av, char **env)
 	
 	ac++;
 	av--;
+	char **envi;
 	t_dict *envc = envcpy(env);
-	ft_putenv(envc);
+	int i;
+	i = 0;
+	envi = dict_to_tab(envc);
+	while (envi[i])
+	{
+		ft_putendl(envi[i]);
+		i++;
+	}
 	/* char *line; */
 	/* t_list *envlist; */
 	/* t_cmd	cmd; */
