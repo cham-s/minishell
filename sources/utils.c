@@ -39,7 +39,7 @@ char	**list_to_tab(t_list **envlist)
 	cur = *envlist;
 	i = 0;
 	len = ft_lstlen(envlist);
-	env = (char **)ft_memalloc(len);
+	env = (char **)ft_memalloc(len + 1);
 	if (!env)
 		return (NULL);
 	while (cur)
@@ -48,6 +48,7 @@ char	**list_to_tab(t_list **envlist)
 		cur = cur->next;
 		i++;
 	}
+	env[i] = NULL;
 	return (env);
 }
 

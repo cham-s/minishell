@@ -3,7 +3,7 @@ CC = clang
 LIB = libft/libft.a
 FLAGS = -g -Wall -Werror -Wextra
 INCLUDES = -I includes -I libft/includes
-OBJS = main.o utils.o env.o cmd.o
+OBJS = main.o utils.o env.o cmd.o exec.o
 .PHONY: all clean fclean re
 
 VPATH = sources/

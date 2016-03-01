@@ -5,8 +5,10 @@
 # define 	T_CMD(node) ((t_cmd*)node->content)
 # define	NOFILE		1	
 # define	NOEXE		2
-# define	NOPERM		3
-# define	EMPTYPATH	4
+# define	NOWR		3
+# define	NORD		4
+# define	NOACCESS	5
+# define	EMPTYPATH	6
 
 typedef	struct	s_env
 {
@@ -28,5 +30,9 @@ void	ft_putenv(t_list **env);
 char	**list_to_tab(t_list **envlist);
 char	*join_with_chr(char *var, char *value, char c);
 int		initcmd(t_env *path, t_cmd *cmd, char *line);
+int		check_exepath(char *exepath);
+void	put_error(int error, char *cmd);
+void	launch_exec(t_cmd *cmd, t_list **envlist);
+void	free_tab(char **tab);
 
 #endif
