@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cattouma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/03/02 10:43:16 by cattouma          #+#    #+#             */
+/*   Updated: 2016/03/02 12:14:59 by cattouma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int		check_exepath(char *exepath)
@@ -23,7 +35,8 @@ void	put_error(int error, char *cmd)
 	message = NULL;
 	if (error == NOFILE)
 		message = ": command not found";
-	else if (error == NOEXE || error == NOWR || error == NORD || error == NOACCESS)
+	else if (error == NOEXE || error == NOWR ||
+			error == NORD || error == NOACCESS)
 		message = ": Permission denied";
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(cmd, 2);
@@ -39,7 +52,6 @@ int		loop_paths(t_cmd *cmd, char **binlist)
 	i = 0;
 	while (binlist[i])
 	{
-		// free exepath
 		exepath = join_with_chr(binlist[i], (cmd)->av[0], '/');
 		if ((cmd->error = check_exepath(exepath)) == 0)
 		{
@@ -51,13 +63,13 @@ int		loop_paths(t_cmd *cmd, char **binlist)
 	return (0);
 }
 
-int		initcmd(char *path, t_cmd *cmd, char *line)
+int		initcmd(t_dict *env, t_cmd *cmd, char *line)
 {
 	char	**bins;
 
-	bins = ft_strsplit(path, ':');
+	bins = ft_strsplit(dict_search(env, "PATH"), ':');
 	cmd->exepath = NULL;
-	cmd->av = ft_splitspaces(line);
+	cmd->av = split_parse(line, env);
 	if (cmd->av[0])
 	{
 		if ((cmd->error = check_exepath(cmd->av[0]) == 0))
@@ -66,7 +78,7 @@ int		initcmd(char *path, t_cmd *cmd, char *line)
 			return (1);
 		}
 		else
-			return(loop_paths(cmd, bins));
+			return (loop_paths(cmd, bins));
 	}
 	return (0);
 }

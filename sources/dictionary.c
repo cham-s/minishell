@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dictionary.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cattouma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/03/02 10:32:54 by cattouma          #+#    #+#             */
+/*   Updated: 2016/03/02 12:37:34 by cattouma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-t_dict	*init_dict(int size)
+t_dict			*init_dict(int size)
 {
-	t_dict *d;
-	int i;
+	t_dict	*d;
+	int		i;
 
 	i = 0;
 	d = (t_dict *)ft_memalloc(sizeof(t_dict));
@@ -20,16 +32,16 @@ t_dict	*init_dict(int size)
 	return (d);
 }
 
-t_dict	*dict_create(void)
+t_dict			*dict_create(void)
 {
 	return (init_dict(INIT_SIZE));
 }
 
-void	dict_destroy(t_dict *d)
+void			dict_destroy(t_dict *d)
 {
-	int i;
-	t_elt *e;
-	t_elt *tmp;
+	int		i;
+	t_elt	*e;
+	t_elt	*tmp;
 
 	i = 0;
 	while (i < d->size)
@@ -39,9 +51,9 @@ void	dict_destroy(t_dict *d)
 		{
 			tmp = e;
 			e = e->next;
-			free(e->key);
-			free(e->value);
-			free(e);
+			free(tmp->key);
+			free(tmp->value);
+			free(tmp);
 		}
 		i++;
 	}
@@ -49,13 +61,12 @@ void	dict_destroy(t_dict *d)
 	free(d);
 }
 
-unsigned long hash_function(const char *s) 
+unsigned long	hash_function(const char *s)
 {
 	unsigned const char	*ts;
 	unsigned long		h;
 
 	h = 0;
-
 	ts = (unsigned const char *)s;
 	while (*ts)
 	{
@@ -65,12 +76,12 @@ unsigned long hash_function(const char *s)
 	return (h);
 }
 
-void grow(t_dict *d)
+void			grow(t_dict *d)
 {
-	t_dict *d2;
-	t_dict swap;
-	int i;
-	t_elt *e;
+	t_dict	*d2;
+	t_dict	swap;
+	int		i;
+	t_elt	*e;
 
 	i = 0;
 	d2 = init_dict(d->size * GROWTH_FACTOR);

@@ -1,19 +1,29 @@
-#include "minishell.h" 
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dictionary2.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cattouma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/03/02 10:33:04 by cattouma          #+#    #+#             */
+/*   Updated: 2016/03/02 10:52:20 by cattouma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
 
 void	dict_insert(t_dict *d, const char *key, const char *value)
 {
-	t_elt *e;
-	unsigned long h;
+	t_elt			*e;
+	unsigned long	h;
 
 	if (!key || !value)
 		return ;
-
 	e = (t_elt *)ft_memalloc(sizeof(t_elt));
 	if (!e)
 		return ;
 	e->key = ft_strdup(key);
 	e->value = ft_strdup(value);
-
 	h = hash_function(key) % d->size;
 	e->next = d->table[h];
 	d->table[h] = e;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   split_parse.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cattouma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/03/02 10:33:18 by cattouma          #+#    #+#             */
+/*   Updated: 2016/03/02 16:18:33 by cattouma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static size_t	to_allocate(const char *s)
@@ -34,15 +46,38 @@ static size_t	ft_strlenchar(const char *s)
 	return (i);
 }
 
-char			*is_symbol(char *s, size_t len, t_list **env)
+int				is_symbol(char c)
 {
-	t_env env;
-	while ()
-	env = get_env()
-	if (get_)
+	return(c == '-' || c == '~');
 }
 
-char			**ft_splitspaces(char const *s, t_list **env)
+char			*replace_symbol(char *s, t_dict *env)
+{
+	char	*key;
+	t_dict	*symbols;
+
+	symbols = dict_create();
+	dict_insert(symbols, "-", "OLDPWD");
+	dict_insert(symbols, "~-", "HOME");
+	dict_insert(symbols, "~+", "HOME");
+	dict_insert(symbols, ".", "PWD");
+	if (is_symbol(s[0])		)
+	{
+		key  = ft_strjoin();
+	}
+	if ((key = dict_search(symbols, s)))
+	{
+		key = ft_strdup(key);
+		free(s);
+		dict_destroy(symbols);
+		//ft_putendl((dict_search(env, "OLDPWD")));
+		//exit(4);
+		return(dict_search(env, key));
+	}
+	return (s);
+}
+
+char			**split_parse(char const *s, t_dict *env)
 {
 	char	**new;
 	size_t	len;
@@ -63,6 +98,7 @@ char			**ft_splitspaces(char const *s, t_list **env)
 			s++;
 		strlen = ft_strlenchar(s);
 		new[i] = ft_strndup(s, strlen);
+		new[i] = replace_symbol(new[i], env);
 		s += strlen;
 		i++;
 	}

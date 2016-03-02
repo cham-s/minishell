@@ -29,7 +29,7 @@ int     main(int ac, char **av, char **env)
 		ft_putstr("minishell>");
 		get_next_line(0, &line);
 		//make var for enncpy **char to be free later
-		if (initcmd(dict_search(envc, "PATH"), &cmd, line) != -1)
+		if (initcmd(envc, &cmd, line) != -1)
 			launch_exec(&cmd, dict_to_tab(envc));
 		free(line);
 	}
