@@ -61,10 +61,6 @@ char			*replace_symbol(char *s, t_dict *env)
 	dict_insert(symbols, "~-", "HOME");
 	dict_insert(symbols, "~+", "HOME");
 	dict_insert(symbols, ".", "PWD");
-	if (is_symbol(s[0])		)
-	{
-		key  = ft_strjoin();
-	}
 	if ((key = dict_search(symbols, s)))
 	{
 		key = ft_strdup(key);

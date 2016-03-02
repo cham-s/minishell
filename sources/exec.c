@@ -12,16 +12,36 @@
 
 #include "minishell.h"
 
-void	launch_exec(t_cmd *cmd, char **env)
+void	launch_exec(t_cmd *cmd, t_dict *env)
 {
 	pid_t	child_pid;	
 	pid_t	t_pid = 0;	
 	int		status;
 
+	if (cmd->av[0])
+	{
+		if (!ft_strcmp(cmd->av[0], "env"))
+		{
+			ft_putenv(env);
+			return ;
+		}
+		else if (!ft_strcmp(cmd->av[0], "unsetenv"))
+		{
+			ft_unsetenv(cmd->av[1], env);
+			return ;
+		}
+		else if (!ft_strcmp(cmd->av[0], "setenv"))
+		{
+			ft_setenv(cmd->av[1], cmd->av[2], env, 0);
+			return ;
+		}
+		else if (!ft_strcmp(cmd->av[0], "exit"))
+			exit(0);
+	}
 	child_pid = fork();
 	if (child_pid == 0)
 	{
-		execve(cmd->exepath, cmd->av, env);
+		execve(cmd->exepath, cmd->av, dict_to_tab(env));
 		put_error(cmd->error, cmd->av[0]);
 	}
 	else

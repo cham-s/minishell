@@ -1,7 +1,5 @@
 #include "minishell.h"
 
-//extern char *g_tokens[5] = { "-", "~", ".", "..", NULL}
-
 void	ft_delsplit(char **split)
 {
 	int i;
@@ -26,11 +24,11 @@ int     main(int ac, char **av, char **env)
 
 	while (1)
 	{
-		ft_putstr("minishell>");
+		ft_putstr("minishell $>");
 		get_next_line(0, &line);
 		//make var for enncpy **char to be free later
 		if (initcmd(envc, &cmd, line) != -1)
-			launch_exec(&cmd, dict_to_tab(envc));
+			launch_exec(&cmd, envc);
 		free(line);
 	}
 	return (0);

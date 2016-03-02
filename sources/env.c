@@ -37,6 +37,24 @@ t_dict	*envcpy(char **env)
 	return (envdict);
 }
 
+int		ft_unsetenv(const char *key, t_dict *env)
+{
+	if (!key || ft_strchr(key, '=') || key[0] == '\0')
+		return (-1);
+	dict_delete(env, key);
+	return (0);
+}
+
+int		ft_setenv(const char *key, const char *value, t_dict *env, int overwrite)
+{
+	if (overwrite)
+	{
+		dict_delete(env, key);
+	}
+	dict_insert(env, key, value);
+	return (0);
+}
+
 void	ft_putenv(t_dict *env)
 {
 	int		i;
