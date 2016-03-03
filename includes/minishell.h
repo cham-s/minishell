@@ -3,14 +3,13 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include "libft.h"
-//# define 	T_ENV(node) ((t_env*)node->content)
-//# define 	T_CMD(node) ((t_cmd*)node->content)
 # define	NOFILE			1	
 # define	NOEXE			2
 # define	NOWR			3
 # define	NORD			4
 # define	NOACCESS		5
 # define	EMPTYPATH		6
+# define	MANYARGS		7
 # define	INIT_SIZE		30	
 # define	MULTIPLAYER		97
 # define	GROWTH_FACTOR	2

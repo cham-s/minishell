@@ -36,7 +36,12 @@ void	launch_exec(t_cmd *cmd, t_dict *env)
 			return ;
 		}
 		else if (!ft_strcmp(cmd->av[0], "exit"))
-			exit(0);
+		{
+			if (cmd->av[1])
+				put_error(MANYARGS, "exit");
+			else
+				exit(0);
+		}
 	}
 	child_pid = fork();
 	if (child_pid == 0)
