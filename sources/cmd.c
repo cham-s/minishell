@@ -24,7 +24,7 @@ int		loop_paths(t_cmd *cmd, char **binlist)
 		if ((cmd->error = check_exepath(exepath)) == 0)
 		{
 			cmd->exepath = exepath;
-			return (1);
+			return (0);
 		}
 		i++;
 	}
@@ -43,10 +43,10 @@ int		initcmd(t_dict *env, t_cmd *cmd, char *line)
 		if ((cmd->error = check_exepath(cmd->av[0]) == 0))
 		{
 			cmd->exepath = ft_strdup(cmd->av[0]);
-			return (1);
+			return (0);
 		}
 		else
 			return (loop_paths(cmd, bins));
 	}
-	return (0);
+	return (-1);
 }

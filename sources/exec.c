@@ -49,8 +49,6 @@ void	launch_exec(t_cmd *cmd, t_dict *env)
 	if (child_pid == 0)
 	{
 		execve(cmd->exepath, cmd->av, dict_to_tab(env));
-		ft_putendl("error");
-		exit(6);
 		put_error(cmd->error, cmd->av[0]);
 	}
 	else

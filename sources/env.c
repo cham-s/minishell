@@ -47,6 +47,9 @@ int		ft_unsetenv(const char *key, t_dict *env)
 
 int		ft_setenv(const char *key, const char *value, t_dict *env, int overwrite)
 {
+	if (!key || ft_strchr(key, '=') || key[0] == '\0' || !value)
+		return (-1);
+
 	if (overwrite)
 	{
 		dict_delete(env, key);
