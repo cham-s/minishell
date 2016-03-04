@@ -6,7 +6,7 @@
 /*   By: cattouma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 10:32:41 by cattouma          #+#    #+#             */
-/*   Updated: 2016/03/02 10:53:14 by cattouma         ###   ########.fr       */
+/*   Updated: 2016/03/04 18:11:22 by cattouma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	launch_exec(t_cmd *cmd, t_dict *env)
 	pid_t	t_pid = 0;	
 	int		status;
 
+	if (!env)
+		return ;
 	if (cmd->av[0])
 	{
 		if (!ft_strcmp(cmd->av[0], "env"))
@@ -47,6 +49,8 @@ void	launch_exec(t_cmd *cmd, t_dict *env)
 	if (child_pid == 0)
 	{
 		execve(cmd->exepath, cmd->av, dict_to_tab(env));
+		ft_putendl("error");
+		exit(6);
 		put_error(cmd->error, cmd->av[0]);
 	}
 	else

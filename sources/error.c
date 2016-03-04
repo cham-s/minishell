@@ -1,4 +1,4 @@
-#include "minishell.c"
+#include "minishell.h"
 
 int		check_exepath(char *exepath)
 {

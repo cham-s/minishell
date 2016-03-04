@@ -15,7 +15,6 @@ void	ft_delsplit(char **split)
 
 int     main(int ac, char **av, char **env)
 {
-	
 	ac++;
 	av--;
 	t_dict *envc = envcpy(env);
