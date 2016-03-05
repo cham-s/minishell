@@ -1,30 +1,31 @@
 #include "minishell.h"
 
-char	is_tokenchr(char c)
+int		is_tokenchr(char c)
 {
 	if (c == '-' || c == '~')
-		return (c); 
-	return ('\0');
+		return (1); 
+	return (0);
 }
 
 char	*is_tokenstr(char *s)
 {
 	if (!s[1])
 	{
-		if (s[0] == '-' || s[0] == '~')
+		if (is_tokenchr(s[0]))
 			return (s);
+	}
+	else if (ft_strchr(s, '/') - s == 2)
+	{
+		if (!ft_strncmp(s, "~+", 2) || !ft_strncmp(s, "~-", 2))
+			return (ft_strndup(s, 2));
+	}
+	else if (ft_strchr(s, '/') - s == 1)
+	{
+		if (s[0] == '-' || s[0] == '~')
+			return (ft_strndup(s, 1));
 	}
 	else
-		if (!ft_strncmp(s, "~+", 2) || !ft_strncmp(s, "~-", 2))
+		if (!ft_strcmp(s, "~+") || !ft_strcmp(s, "~-"))
 			return (s);
 	return (NULL);
-}
-
-char	*search_n_replace(char *s)
-{
-	if (dict_search(dict, s))
-	{
-		if (is_token(s[0] && s[1]) || is_token())
-	}
-	return (s);
 }

@@ -58,7 +58,7 @@ void				free_tab(char **tab);
 char				**split_parse(char const *s, t_dict *env);
 int					ft_setenv(const char *key, const char *value, t_dict *env, int overwrite);
 int					ft_unsetenv(const char *key, t_dict *env);
-char				is_tokenchr(char c);
+int					is_tokenchr(char c);
 char				*is_tokenstr(char *s);
 int					init_tokens(t_dict *tokens);
 

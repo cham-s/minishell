@@ -6,7 +6,7 @@
 /*   By: cattouma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 10:33:18 by cattouma          #+#    #+#             */
-/*   Updated: 2016/03/05 11:08:23 by cattouma         ###   ########.fr       */
+/*   Updated: 2016/03/05 15:57:04 by cattouma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,22 @@ char			*replace_symbol(char *s, t_dict *env)
 	char	*key;
 	char	*tmp;
 	char	*envar;
-	size_t	len_s;
 
-	if ((key = is_tokenstr(s)) && s[2] == '/')
+	if ((key = is_tokenstr(s)) && ft_strchr(s, '/') - s == 2)
 	{
-		key = ft_strdup(dict_search(g_tokens, key));
+		envar = dict_search(env, dict_search(g_tokens, key));
 		tmp = s;
-		s = ft_strnew((ft_strlen(s) - 2) + ft_strlen(dict_search(env, key)));
-		//free(tmp);
-		s = ft_strdup(dict_search(env, key)); 
-		free(key);
+		s = ft_strjoin(envar, s + 2);
+		free(tmp);
+		//free(key);
+	}
+	else if ((key = is_tokenstr(s)))
+	{
+		envar = dict_search(env, dict_search(g_tokens, key));
+		tmp = s;
+		s = ft_strdup(envar);
+		free(tmp);
+		//free(key);
 	}
 	return (s);
 }
