@@ -36,6 +36,9 @@ typedef struct		s_cmd
 	int		error;
 }					t_cmd;
 
+extern t_dict	*g_tokens;
+extern t_dict	*g_env;
+
 void	 			grow(t_dict *d);
 unsigned long		hash_function(const char *s);
 t_dict				*dict_create(void);
@@ -57,5 +60,6 @@ int					ft_setenv(const char *key, const char *value, t_dict *env, int overwrite
 int					ft_unsetenv(const char *key, t_dict *env);
 char				is_tokenchr(char c);
 char				*is_tokenstr(char *s);
+int					init_tokens(t_dict *tokens);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: cattouma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 10:33:18 by cattouma          #+#    #+#             */
-/*   Updated: 2016/03/04 17:43:28 by cattouma         ###   ########.fr       */
+/*   Updated: 2016/03/05 11:08:23 by cattouma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,25 +49,19 @@ static size_t	ft_strlenchar(const char *s)
 char			*replace_symbol(char *s, t_dict *env)
 {
 	char	*key;
-	t_dict	*symbols;
+	char	*tmp;
+	char	*envar;
+	size_t	len_s;
 
-	if ((key = is_tokenstr(s)))
+	if ((key = is_tokenstr(s)) && s[2] == '/')
 	{
-		symbols = dict_create();
-		dict_insert(symbols, "-", "OLDPWD");
-		dict_insert(symbols, "~", "HOME");
-		dict_insert(symbols, "~+", "HOME");
-		dict_insert(symbols, ".", "PWD");
-		key = ft_strdup(dict_search(symbols, key));
-		dict_destroy(symbols);
-		free(s);
+		key = ft_strdup(dict_search(g_tokens, key));
+		tmp = s;
+		s = ft_strnew((ft_strlen(s) - 2) + ft_strlen(dict_search(env, key)));
+		//free(tmp);
 		s = ft_strdup(dict_search(env, key)); 
 		free(key);
 	}
-	/* else */
-	/* { */
-	/* 	if (is_tokenchr(s[0]) && s[1] == '/') */
-	/* } */
 	return (s);
 }
 

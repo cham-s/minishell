@@ -6,7 +6,7 @@
 /*   By: cattouma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 10:32:41 by cattouma          #+#    #+#             */
-/*   Updated: 2016/03/04 18:11:22 by cattouma         ###   ########.fr       */
+/*   Updated: 2016/03/05 10:08:21 by cattouma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	launch_exec(t_cmd *cmd, t_dict *env)
 	pid_t	child_pid;	
 	pid_t	t_pid = 0;	
 	int		status;
+	char	**tab_env;
 
 	if (!env)
 		return ;
@@ -46,9 +47,10 @@ void	launch_exec(t_cmd *cmd, t_dict *env)
 		}
 	}
 	child_pid = fork();
+	tab_env = dict_to_tab(env);
 	if (child_pid == 0)
 	{
-		execve(cmd->exepath, cmd->av, dict_to_tab(env));
+		execve(cmd->exepath, cmd->av, tab_env);
 		put_error(cmd->error, cmd->av[0]);
 	}
 	else

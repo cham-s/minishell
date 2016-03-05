@@ -4,7 +4,7 @@ LIB = libft/libft.a
 FLAGS = -g -Wall -Werror -Wextra
 INCLUDES = -I includes -I libft/includes
 OBJS = main.o utils.o exec.o env.o cmd.o dictionary.o dictionary2.o split_parse.o \
-	   error.o parser.o
+	   error.o parser.o init.o
 .PHONY: all clean fclean re
 
 VPATH = sources/
