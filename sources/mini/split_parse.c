@@ -60,8 +60,18 @@ char			*replace_symbol(char *s, t_dict *env)
 		free(tmp);
 		//free(key);
 	}
+	else if ((key = is_tokenstr(s)) && ft_strchr(s, '/') - s == 1)
+	{
+		envar = dict_search(env, dict_search(g_tokens, key));
+		tmp = s;
+		s = ft_strjoin(envar, s + 1);
+		free(tmp);
+		//free(key);
+	}
 	else if ((key = is_tokenstr(s)))
 	{
+		ft_putendl("here");
+		exit(3);
 		envar = dict_search(env, dict_search(g_tokens, key));
 		tmp = s;
 		s = ft_strdup(envar);

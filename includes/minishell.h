@@ -3,6 +3,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include "libft.h"
+# include "dict.h"
 # define	NOFILE			1	
 # define	NOEXE			2
 # define	NOWR			3
@@ -10,24 +11,6 @@
 # define	NOACCESS		5
 # define	EMPTYPATH		6
 # define	MANYARGS		7
-# define	INIT_SIZE		30	
-# define	MULTIPLAYER		97
-# define	GROWTH_FACTOR	2
-# define	MAX_LOAD_FACTOR	1
-
-typedef struct		s_elt
-{
-	char			*key;		
-	char			*value;		
-	struct s_elt	*next; 
-}					t_elt;
-
-typedef struct		s_dict
-{
-	int				size;
-	int				n;
-	t_elt			**table;
-}					t_dict;
 
 typedef struct		s_cmd
 {
@@ -37,15 +20,7 @@ typedef struct		s_cmd
 }					t_cmd;
 
 extern t_dict	*g_tokens;
-extern t_dict	*g_env;
 
-void	 			grow(t_dict *d);
-unsigned long		hash_function(const char *s);
-t_dict				*dict_create(void);
-void				dict_destroy(t_dict *dict);
-void				dict_insert(t_dict *d, const char *key, const char *value);
-char				*dict_search(t_dict *d, const char *key);
-void				dict_delete(t_dict *d, const char *key);
 t_dict				*envcpy(char **env);
 void				ft_putenv(t_dict *env);
 char				**dict_to_tab(t_dict *env);

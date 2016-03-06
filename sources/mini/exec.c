@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "cd.h"
 
 void	launch_exec(t_cmd *cmd, t_dict *env)
 {
@@ -44,6 +45,10 @@ void	launch_exec(t_cmd *cmd, t_dict *env)
 				put_error(MANYARGS, "exit");
 			else
 				exit(0);
+		}
+		else if (!ft_strcmp(cmd->av[0], "cd"))
+		{
+			ft_cd(cmd->av, env);
 		}
 	}
 	child_pid = fork();

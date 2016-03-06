@@ -12,7 +12,9 @@ char	*is_tokenstr(char *s)
 	if (!s[1])
 	{
 		if (is_tokenchr(s[0]))
-			return (s);
+		{
+			return (s[0] == '-' ? ft_strdup("-"): ft_strdup("~"));
+		}
 	}
 	else if (ft_strchr(s, '/') - s == 2)
 	{
@@ -24,8 +26,7 @@ char	*is_tokenstr(char *s)
 		if (s[0] == '-' || s[0] == '~')
 			return (ft_strndup(s, 1));
 	}
-	else
-		if (!ft_strcmp(s, "~+") || !ft_strcmp(s, "~-"))
-			return (s);
+	else if (!ft_strcmp(s, "~+") || !ft_strcmp(s, "~-"))
+		return (ft_strdup(s));
 	return (NULL);
 }

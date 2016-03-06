@@ -16,6 +16,7 @@ int		check_exepath(char *exepath)
 		return (NOACCESS);
 }
 
+//change the name of the cammand calling the error
 void	put_error(int error, char *cmd)
 {
 	char *message;

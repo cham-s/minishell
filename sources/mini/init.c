@@ -1,13 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cattouma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/28 11:09:25 by cattouma          #+#    #+#             */
-/*   Updated: 2016/02/28 11:09:27 by cattouma         ###   ########.fr       */
+/*   Created: 2016/03/05 09:57:10 by cattouma          #+#    #+#             */
+/*   Updated: 2016/03/05 11:08:24 by cattouma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
 
+int		init_tokens()
+{
+	g_tokens = dict_create();
+	if (!g_tokens)
+		return (-1);
+	dict_insert(g_tokens, "~", "HOME");
+	dict_insert(g_tokens, "-", "OLDPWD");
+	dict_insert(g_tokens, "~+", "PWD");
+	dict_insert(g_tokens, "~-", "OLDPWD");
+	return (0);
+}
