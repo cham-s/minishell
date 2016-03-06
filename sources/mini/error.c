@@ -34,3 +34,9 @@ void	put_error(int error, char *cmd)
 	ft_putendl_fd(message, 2);
 	exit(0);
 }
+
+void	env_missing(char *envkey)
+{
+	ft_putstr_fd(envkey, 2);
+	ft_putendl_fd(": environement variable missing, you can set it using setenv", 2);
+}

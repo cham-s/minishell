@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "dict.h"
 
 void	dict_insert(t_dict *d, const char *key, const char *value)
 {

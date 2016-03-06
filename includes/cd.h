@@ -15,7 +15,7 @@ typedef	struct	s_cdflag
 extern	t_cdflag g_options;
 
 void			getoptions(int ac, char **av);
-char			*getdir(int ac, char **av, t_dict *env);
+int				getdir(int ac, char **av, t_dict *env, char **buffer);
 int				ft_cd(char **av, t_dict *env);
 void			initoptions(t_cdflag *options);
 

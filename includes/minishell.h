@@ -36,5 +36,6 @@ int					ft_unsetenv(const char *key, t_dict *env);
 int					is_tokenchr(char c);
 char				*is_tokenstr(char *s);
 int					init_tokens(t_dict *tokens);
+void				env_missing(char *envkey);
 
 #endif

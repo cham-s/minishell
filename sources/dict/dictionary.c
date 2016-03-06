@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "dict.h"
 
 t_dict			*init_dict(int size)
 {
