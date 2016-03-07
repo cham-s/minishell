@@ -6,7 +6,7 @@
 /*   By: cattouma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 10:33:18 by cattouma          #+#    #+#             */
-/*   Updated: 2016/03/05 15:57:04 by cattouma         ###   ########.fr       */
+/*   Updated: 2016/03/07 11:19:46 by cattouma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ char			*replace_symbol(char *s, t_dict *env)
 	}
 	else if ((key = is_tokenstr(s)))
 	{
-		ft_putendl("here");
-		exit(3);
 		envar = dict_search(env, dict_search(g_tokens, key));
 		tmp = s;
 		s = ft_strdup(envar);

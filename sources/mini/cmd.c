@@ -6,7 +6,7 @@
 /*   By: cattouma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 10:43:16 by cattouma          #+#    #+#             */
-/*   Updated: 2016/03/02 12:14:59 by cattouma         ###   ########.fr       */
+/*   Updated: 2016/03/07 14:35:25 by cattouma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int		initcmd(t_dict *env, t_cmd *cmd, char *line)
 	bins = ft_strsplit(dict_search(env, "PATH"), ':');
 	cmd->exepath = NULL;
 	cmd->av = split_parse(line, env);
+	cmd->ac = ft_tablen(cmd->av);
 	if (cmd->av[0])
 	{
 		if ((cmd->error = check_exepath(cmd->av[0]) == 0))

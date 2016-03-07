@@ -14,7 +14,7 @@ int     main(int ac, char **av, char **env)
 	init_tokens(g_tokens);
 	while (1)
 	{
-		ft_putstr("\x1B[33mminishell\033[0m $> ");
+		ft_putstr("\x1B[33mminishell\033[0m$> ");
 		get_next_line(0, &line);
 		if (initcmd(envc, &cmd, line) != -1)
 			launch_exec(&cmd, envc);

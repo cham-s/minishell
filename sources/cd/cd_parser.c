@@ -37,34 +37,50 @@ int				getdir(int ac, char **av, t_dict *env, char **buffer)
 	i++;
 	if(!av[i])
 	{
+		// declare a home env var
 		if (!dict_search(env, "HOME"))
 		{
 			env_missing("HOME");
 			return (-1);
 		}
 		*buffer = ft_strdup(dict_search(env, "HOME"));
-		//ft_putendl(buffer);
 		return (0);
 	}
 	while (ac-- > 1 && av[i][0] == '-' && av[i][1] != '\0')
 	{
+	//exit(4);
 		j = 1;
+		ft_putendl(av[i]);
+		//ft_putnbr(ac);
 		if (ft_strcmp(av[i], "--") == 0)
 			break ;
 		while (av[i][j])
 		{
 			if (OPTIN(CD_OPT, av[i][j]) == NULL)
+			{
+				ac++;
+				i--;
 				break ;
+			}
 			j++;
 		}
 		i++;
 	}
-	//ft_putnbr(ac);
-	//exit(4);
-	if (!*(av + 1))
-		*buffer = ft_strdup(*(av));
+	ft_putendl(av[i]);
+	exit(4);
+	if (ac > 2)
+	{
+		put_cd_error(MANYARGS, "");
+		return (-1);
+	}
+	if (!(av[i] + 1))
+	{
+		ft_putendl(av[i]);
+		exit(4);
+		*buffer = ft_strdup((av[i]));
+	}
 	else
-		*buffer = ft_strdup(*(av + 1));
+		*buffer = ft_strdup((av[i] + 1));
 	return (0);
 }
 
@@ -78,7 +94,11 @@ void			put_cd_error(int cderrno, char *dir)
 	else if (cderrno == MANYARGS)
 		message = "too many arguments";
 	ft_putstr_fd("cd: ", 2);
-	ft_putstr_fd(message, 2);
 	if (cderrno == NOTPWD)
+	{
+		ft_putstr_fd(message, 2);
 		ft_putendl_fd(dir, 2);
+	}
+	else
+		ft_putendl_fd(message, 2);
 }

@@ -6,7 +6,7 @@
 /*   By: cattouma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 10:32:41 by cattouma          #+#    #+#             */
-/*   Updated: 2016/03/05 15:02:13 by cattouma         ###   ########.fr       */
+/*   Updated: 2016/03/07 17:02:41 by cattouma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,13 @@ void	launch_exec(t_cmd *cmd, t_dict *env)
 		}
 		else if (!ft_strcmp(cmd->av[0], "setenv"))
 		{
-			ft_setenv(cmd->av[1], cmd->av[2], env, 0);
+			if (cmd->ac == 5)
+				put_error(MANYARGS, "setenv");
+			else
+				if (cmd->ac == 4)
+					ft_setenv(cmd->av[1], cmd->av[2], env, ft_atoi(cmd->av[3]));
+				else
+					ft_setenv(cmd->av[1], cmd->av[2], env, 0);
 			return ;
 		}
 		else if (!ft_strcmp(cmd->av[0], "exit"))
@@ -48,7 +54,7 @@ void	launch_exec(t_cmd *cmd, t_dict *env)
 		}
 		else if (!ft_strcmp(cmd->av[0], "cd"))
 		{
-			ft_cd(cmd->av, env);
+			ft_cd(cmd->ac, cmd->av, env);
 		}
 	}
 	child_pid = fork();

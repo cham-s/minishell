@@ -15,6 +15,7 @@
 typedef struct		s_cmd
 {
 	char	**av;
+	int		ac;
 	char	*exepath;
 	int		error;
 }					t_cmd;

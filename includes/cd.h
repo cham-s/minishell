@@ -16,7 +16,8 @@ extern	t_cdflag g_options;
 
 void			getoptions(int ac, char **av);
 int				getdir(int ac, char **av, t_dict *env, char **buffer);
-int				ft_cd(char **av, t_dict *env);
+int				ft_cd(int ac, char **av, t_dict *env);
 void			initoptions(t_cdflag *options);
+void			put_cd_error(int cderrno, char *dir);
 
 #endif

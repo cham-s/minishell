@@ -6,7 +6,7 @@
 /*   By: cattouma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 10:32:33 by cattouma          #+#    #+#             */
-/*   Updated: 2016/03/02 10:32:35 by cattouma         ###   ########.fr       */
+/*   Updated: 2016/03/07 15:24:30 by cattouma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,11 @@ int		ft_unsetenv(const char *key, t_dict *env)
 
 int		ft_setenv(const char *key, const char *value, t_dict *env, int overwrite)
 {
-	if (!key || ft_strchr(key, '=') || key[0] == '\0' || !value)
+	if (!key || ft_strchr(key, '=') || key[0] == '\0' || !value || overwrite != 0 || overwrite != 1)
 		return (-1);
 
 	if (overwrite)
-	{
 		dict_delete(env, key);
-	}
 	dict_insert(env, key, value);
 	return (0);
 }
