@@ -4,7 +4,7 @@ LIB = libft/libft.a
 FLAGS = -g -Wall -Werror -Wextra
 INCLUDES = -I includes -I libft/includes
 OBJS = main.o utils.o exec.o env.o cmd.o dictionary.o dictionary2.o split_parse.o \
-	   error.o parser.o init.o cd_initopt.o cd_parser.o cd.o
+	   error.o parser.o init.o cd_initopt.o cd_parser.o cd.o builtins.o
 .PHONY: all clean fclean re
 
 VPATH = sources/mini:sources/cd:sources/dict

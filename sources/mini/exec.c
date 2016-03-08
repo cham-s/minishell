@@ -22,53 +22,45 @@ void	launch_exec(t_cmd *cmd, t_dict *env)
 
 	if (!env)
 		return ;
-	if (cmd->av[0])
+	if (cmd->ac > 0)
 	{
 		if (!ft_strcmp(cmd->av[0], "env"))
 		{
-			ft_putenv(env);
-			return ;
-		}
-		else if (!ft_strcmp(cmd->av[0], "unsetenv"))
-		{
-			ft_unsetenv(cmd->av[1], env);
+			start_env(env, cmd);
 			return ;
 		}
 		else if (!ft_strcmp(cmd->av[0], "setenv"))
 		{
-			if (cmd->ac == 5)
-				put_error(MANYARGS, "setenv");
-			else
-				if (cmd->ac == 4)
-					ft_setenv(cmd->av[1], cmd->av[2], env, ft_atoi(cmd->av[3]));
-				else
-					ft_setenv(cmd->av[1], cmd->av[2], env, 0);
+			start_setenv(env, cmd);
+			return ;
+		}
+		else if (!ft_strcmp(cmd->av[0], "unsetenv"))
+		{
+			start_unsetenv(env, cmd);
+			return ;
+		}
+		else if (!ft_strcmp(cmd->av[0], "cd"))
+		{
+			start_cd(env, cmd);
 			return ;
 		}
 		else if (!ft_strcmp(cmd->av[0], "exit"))
 		{
-			if (cmd->av[1])
-				put_error(MANYARGS, "exit");
-			else
-				exit(0);
-		}
-		else if (!ft_strcmp(cmd->av[0], "cd"))
-		{
-			ft_cd(cmd->ac, cmd->av, env);
+			start_exit(env, cmd);
+			return ;
 		}
 	}
-	child_pid = fork();
 	tab_env = dict_to_tab(env);
+	child_pid = fork();
 	if (child_pid == 0)
 	{
 		execve(cmd->exepath, cmd->av, tab_env);
-		put_error(cmd->error, cmd->av[0]);
+		put_error(cmd->exepath, cmd->av[0]);
 	}
 	else
 	{
 		waitpid(t_pid, &status, 0);
-		//free_tab(env);
-		//free_tab(cmd->av);
+		ft_delsplit(tab_env);
 		return ;
 	}
 }

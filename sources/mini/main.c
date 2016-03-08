@@ -1,7 +1,6 @@
 #include "minishell.h"
 
 t_dict	*g_tokens;
-//extern	 t_dict	*g_env;
 
 int     main(int ac, char **av, char **env)
 {

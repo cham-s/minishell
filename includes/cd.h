@@ -1,10 +1,12 @@
 #ifndef CD_H
 # define CD_H
+# include <sys/stat.h>
 # include "minishell.h"
 # include "dict.h"
 # define CD_OPT			"LP"
 # define OPTIN(a, b)	ft_strchr(a, b)			
 # define NOTPWD			1
+# define PATH_MAX		4096
 
 typedef	struct	s_cdflag
 {
@@ -18,6 +20,6 @@ void			getoptions(int ac, char **av);
 int				getdir(int ac, char **av, t_dict *env, char **buffer);
 int				ft_cd(int ac, char **av, t_dict *env);
 void			initoptions(t_cdflag *options);
-void			put_cd_error(int cderrno, char *dir);
+int				check_dir(char *dir);
 
 #endif

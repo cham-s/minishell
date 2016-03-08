@@ -1,42 +1,43 @@
 #include "minishell.h"
 
-int		check_exepath(char *exepath)
+int		ft_isnum(char c)
 {
-	if (!access(exepath, X_OK))
-		return (0);
-	else if (access(exepath, F_OK))
-		return (NOFILE);
-	else if (access(exepath, X_OK))
-		return (NOEXE);
-	else if (access(exepath, W_OK))
-		return (NOWR);
-	else if (access(exepath, R_OK))
-		return (NORD);
-	else
-		return (NOACCESS);
+	return (c >= '0'|| c <= '9');
+}
+
+int		is_numeric(char *s)
+{
+	size_t i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (!ft_isnum(s[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 //change the name of the cammand calling the error
-void	put_error(int error, char *cmd)
+void	put_error(char *path, char *cmd)
 {
-	char *message;
+	char		*message;
 
 	message = NULL;
-	if (error == NOFILE)
-		message = ": command not found";
-	else if (error == NOEXE || error == NOWR ||
-			error == NORD || error == NOACCESS)
-		message = ": Permission denied";
-	else if (error == MANYARGS)
-		message = ": too many arguments";
+	if (access(path, F_OK))
+		message = "command not found";
+	else if (access(path, X_OK))
+		message = "Permission denied";
 	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(cmd, 2);
-	ft_putendl_fd(message, 2);
-	exit(0);
+	ft_putstr_fd(message, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putendl_fd(cmd, 2);
 }
 
 void	env_missing(char *envkey)
 {
 	ft_putstr_fd(envkey, 2);
-	ft_putendl_fd(": environement variable missing, you can set it using setenv", 2);
+	ft_putendl_fd(": environement variable missing, \
+			you can set it using setenv", 2);
 }

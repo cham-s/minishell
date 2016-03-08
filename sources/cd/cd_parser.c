@@ -48,10 +48,7 @@ int				getdir(int ac, char **av, t_dict *env, char **buffer)
 	}
 	while (ac-- > 1 && av[i][0] == '-' && av[i][1] != '\0')
 	{
-	//exit(4);
 		j = 1;
-		ft_putendl(av[i]);
-		//ft_putnbr(ac);
 		if (ft_strcmp(av[i], "--") == 0)
 			break ;
 		while (av[i][j])
@@ -66,39 +63,41 @@ int				getdir(int ac, char **av, t_dict *env, char **buffer)
 		}
 		i++;
 	}
-	ft_putendl(av[i]);
-	exit(4);
 	if (ac > 2)
 	{
-		put_cd_error(MANYARGS, "");
+		ft_putendl_fd("cd : too many arguments", 2);
 		return (-1);
 	}
-	if (!(av[i] + 1))
+	if (!av[i + 1])
 	{
-		ft_putendl(av[i]);
-		exit(4);
-		*buffer = ft_strdup((av[i]));
+		if (check_dir(av[i]) != -1)
+			*buffer = ft_strdup((av[i]));
 	}
 	else
-		*buffer = ft_strdup((av[i] + 1));
+		if (check_dir(av[i + 1]) != -1)
+			*buffer = ft_strdup(av[i + 1]);
 	return (0);
 }
 
-void			put_cd_error(int cderrno, char *dir)
+int			check_dir(char *dir)
 {
-	char *message;
+	char		*message;
+	struct stat	file;
 
 	message = NULL;
-	if (cderrno == NOTPWD)
-		message = "string not in pwd: ";
-	else if (cderrno == MANYARGS)
-		message = "too many arguments";
-	ft_putstr_fd("cd: ", 2);
-	if (cderrno == NOTPWD)
+	if (stat(dir, &file) < 0)
+		message = "No such file or directory: ";
+	else if (access(dir, X_OK))
+		message = "Permission denied: ";
+	else if (!S_ISDIR(file.st_mode))
+		message = "Not a directory: ";
+	if (!message)
+		return (0);
+	else
 	{
+		ft_putstr_fd("cd: ", 2); 
 		ft_putstr_fd(message, 2);
 		ft_putendl_fd(dir, 2);
+		return (-1);
 	}
-	else
-		ft_putendl_fd(message, 2);
 }

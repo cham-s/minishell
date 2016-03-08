@@ -56,7 +56,7 @@ void	dict_delete(t_dict *d, const char *key)
 	{
 		if (!ft_strcmp((*prev)->key, key))
 		{
-			e = (*prev)->next;
+			e = *prev;
 			*prev = e->next;
 			free(e->key);
 			free(e->value);

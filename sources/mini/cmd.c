@@ -21,7 +21,7 @@ int		loop_paths(t_cmd *cmd, char **binlist)
 	while (binlist[i])
 	{
 		exepath = join_with_chr(binlist[i], (cmd)->av[0], '/');
-		if ((cmd->error = check_exepath(exepath)) == 0)
+		if (!access(exepath, F_OK))
 		{
 			cmd->exepath = exepath;
 			return (0);
@@ -41,7 +41,7 @@ int		initcmd(t_dict *env, t_cmd *cmd, char *line)
 	cmd->ac = ft_tablen(cmd->av);
 	if (cmd->av[0])
 	{
-		if ((cmd->error = check_exepath(cmd->av[0]) == 0))
+		if (!access(cmd->av[0], F_OK))
 		{
 			cmd->exepath = ft_strdup(cmd->av[0]);
 			return (0);
