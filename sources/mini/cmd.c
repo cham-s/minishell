@@ -31,13 +31,14 @@ int		loop_paths(t_cmd *cmd, char **binlist)
 	return (0);
 }
 
-int		initcmd(t_dict *env, t_cmd *cmd, char *line)
+int		initcmd(t_dict *env, t_cmd *cmd, char **split_line)
 {
 	char	**bins;
 
 	bins = ft_strsplit(dict_search(env, "PATH"), ':');
 	cmd->exepath = NULL;
-	cmd->av = split_parse(line, env);
+	//malloc;
+	cmd->av = split_line;
 	cmd->ac = ft_tablen(cmd->av);
 	if (cmd->av[0])
 	{

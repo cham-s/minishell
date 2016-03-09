@@ -54,6 +54,11 @@ char			*replace_symbol(char *s, t_dict *env)
 
 	if ((key = is_tokenstr(s)) && ft_strchr(s, '/') - s == 2)
 	{
+		if (!dict_search(env, dict_search(g_tokens, key)))
+		{
+			env_missing(dict_search(g_tokens, key));
+			return (s);
+		}
 		envar = dict_search(env, dict_search(g_tokens, key));
 		tmp = s;
 		s = ft_strjoin(envar, s + 2);
@@ -62,6 +67,11 @@ char			*replace_symbol(char *s, t_dict *env)
 	}
 	else if ((key = is_tokenstr(s)) && ft_strchr(s, '/') - s == 1)
 	{
+		if (!dict_search(env, dict_search(g_tokens, key)))
+		{
+			env_missing(dict_search(g_tokens, key));
+			return (s);
+		}
 		envar = dict_search(env, dict_search(g_tokens, key));
 		tmp = s;
 		s = ft_strjoin(envar, s + 1);
@@ -70,6 +80,11 @@ char			*replace_symbol(char *s, t_dict *env)
 	}
 	else if ((key = is_tokenstr(s)))
 	{
+		if (!dict_search(env, dict_search(g_tokens, key)))
+		{
+			env_missing(dict_search(g_tokens, key));
+			return (s);
+		}
 		envar = dict_search(env, dict_search(g_tokens, key));
 		tmp = s;
 		s = ft_strdup(envar);

@@ -6,6 +6,7 @@ int     main(int ac, char **av, char **env)
 {
 	(void)ac;
 	(void)av;
+	char **split_line;
 	char *line;
 	t_cmd	cmd;
 
@@ -15,7 +16,8 @@ int     main(int ac, char **av, char **env)
 	{
 		ft_putstr("\x1B[33mminishell\033[0m$> ");
 		get_next_line(0, &line);
-		if (initcmd(envc, &cmd, line) != -1)
+		split_line = split_parse(line, envc);
+		if (initcmd(envc, &cmd, split_line) != -1)
 			launch_exec(&cmd, envc);
 		free(line);
 	}

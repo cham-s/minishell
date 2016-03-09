@@ -4,8 +4,20 @@
 void	start_env(t_dict *env, t_cmd *cmd)
 {
 	//do some stuff here like the real env
-	(void)cmd;
-	ft_putenv(env);
+	t_cmd	tcmd;
+	char	**s_line;
+
+	if (cmd->ac == 1)
+	{
+		ft_putenv(env);
+		return ;
+	}
+	s_line = NULL;
+	s_line = cmd->av + 1;
+	if (initcmd(env, &tcmd, s_line) != -1)
+		launch_exec(&tcmd, env);
+	else
+		launch_exec(&tcmd, env);
 }
 
 void	start_unsetenv(t_dict *env, t_cmd *cmd)

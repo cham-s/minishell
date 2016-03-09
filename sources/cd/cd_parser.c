@@ -4,7 +4,9 @@ void			getoptions(int ac, char **av)
 {
 	int		i;
 	int		j;
+	int flaire;
 
+	flaire = 0;
 	i = 0;
 	i++;
 	//exit(3);
@@ -16,15 +18,21 @@ void			getoptions(int ac, char **av)
 		while (av[i][j])
 		{
 			if (OPTIN(CD_OPT, av[i][j]) == NULL)
-				// add a generic function for errors
+			{
+				flaire = 1;
 				break ;
+			}
 			else
+			{
 				if (av[i][j] == 'P' && !g_options.p)
 					g_options.p = 1;
 				else if (av[i][j] == 'L' && !g_options.l)
 					g_options.l = 1;
+			}
 			j++;
 		}
+		if (flaire)
+			break ;
 		i++;
 	}
 }
@@ -33,6 +41,8 @@ int				getdir(int ac, char **av, t_dict *env, char **buffer)
 {
 	int		i;
 	int		j;
+	int flaire;
+	flaire = 0;
 	i = 0;
 	i++;
 	if(!av[i])
@@ -57,13 +67,16 @@ int				getdir(int ac, char **av, t_dict *env, char **buffer)
 			{
 				ac++;
 				i--;
+				flaire = 1;
 				break ;
 			}
 			j++;
 		}
+		if (flaire)
+			break ;
 		i++;
 	}
-	if (ac > 2)
+	if (ac > 3)
 	{
 		ft_putendl_fd("cd : too many arguments", 2);
 		return (-1);
@@ -74,8 +87,10 @@ int				getdir(int ac, char **av, t_dict *env, char **buffer)
 			*buffer = ft_strdup((av[i]));
 	}
 	else
-		if (check_dir(av[i + 1]) != -1)
-			*buffer = ft_strdup(av[i + 1]);
+	if (check_dir(av[i + 1]) != -1)
+	{
+		*buffer = ft_strdup(av[i + 1]);
+	}
 	return (0);
 }
 

@@ -12,7 +12,6 @@ typedef struct		s_cmd
 	char	*exepath;
 }					t_cmd;
 
-
 typedef				void(*fbuiltin)(t_dict *env, t_cmd *cmd);
 
 typedef struct		s_func
@@ -28,7 +27,7 @@ t_dict				*envcpy(char **env);
 void				ft_putenv(t_dict *env);
 char				**dict_to_tab(t_dict *env);
 char				*join_with_chr(char *var, char *value, char c);
-int					initcmd(t_dict *env, t_cmd *cmd, char *line);
+int					initcmd(t_dict *env, t_cmd *cmd, char **line);
 void				put_error(char *path, char *cmd);
 void				launch_exec(t_cmd *cmd, t_dict *env);
 void				free_tab(char **tab);
