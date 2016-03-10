@@ -2,6 +2,7 @@
 # define MINISHELL_H
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <signal.h>
 # include "libft.h"
 # include "dict.h"
 
@@ -45,5 +46,6 @@ void				start_setenv(t_dict *env, t_cmd *cmd);
 void				start_exit(t_dict *env, t_cmd *cmd);
 void				start_cd(t_dict *env, t_cmd *cmd);
 void				ft_delsplit(char **split);
+void				cmd_free(t_cmd *cmd);
 
 #endif

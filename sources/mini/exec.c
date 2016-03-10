@@ -19,7 +19,7 @@ void	launch_exec(t_cmd *cmd, t_dict *dictenv, char **env)
 	pid_t	t_pid = 0;	
 	int		status;
 
-	if (!env)
+	if (!dictenv)
 		return ;
 	if (cmd->ac > 0)
 	{
@@ -59,6 +59,7 @@ void	launch_exec(t_cmd *cmd, t_dict *dictenv, char **env)
 	else
 	{
 		waitpid(t_pid, &status, 0);
+		cmd_free(cmd);
 		return ;
 	}
 }

@@ -23,3 +23,8 @@ int		init_tokens()
 	dict_insert(g_tokens, "~-", "OLDPWD");
 	return (0);
 }
+
+void	cmd_free(t_cmd *cmd)
+{
+	free(cmd->exepath);
+}
