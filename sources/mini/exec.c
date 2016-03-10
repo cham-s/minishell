@@ -13,12 +13,11 @@
 #include "minishell.h"
 #include "cd.h"
 
-void	launch_exec(t_cmd *cmd, t_dict *env)
+void	launch_exec(t_cmd *cmd, t_dict *dictenv, char **env)
 {
 	pid_t	child_pid;	
 	pid_t	t_pid = 0;	
 	int		status;
-	char	**tab_env;
 
 	if (!env)
 		return ;
@@ -26,41 +25,40 @@ void	launch_exec(t_cmd *cmd, t_dict *env)
 	{
 		if (!ft_strcmp(cmd->av[0], "env"))
 		{
-			start_env(env, cmd);
+			start_env(dictenv, cmd);
 			return ;
 		}
 		else if (!ft_strcmp(cmd->av[0], "setenv"))
 		{
-			start_setenv(env, cmd);
+			start_setenv(dictenv, cmd);
 			return ;
 		}
 		else if (!ft_strcmp(cmd->av[0], "unsetenv"))
 		{
-			start_unsetenv(env, cmd);
+			start_unsetenv(dictenv, cmd);
 			return ;
 		}
 		else if (!ft_strcmp(cmd->av[0], "cd"))
 		{
-			start_cd(env, cmd);
+			start_cd(dictenv, cmd);
 			return ;
 		}
 		else if (!ft_strcmp(cmd->av[0], "exit"))
 		{
-			start_exit(env, cmd);
+			start_exit(dictenv, cmd);
 			return ;
 		}
 	}
-	tab_env = dict_to_tab(env);
 	child_pid = fork();
 	if (child_pid == 0)
 	{
-		execve(cmd->exepath, cmd->av, tab_env);
+		execve(cmd->exepath, cmd->av, env);
 		put_error(cmd->exepath, cmd->av[0]);
+		exit(EXIT_FAILURE);
 	}
 	else
 	{
 		waitpid(t_pid, &status, 0);
-		ft_delsplit(tab_env);
 		return ;
 	}
 }

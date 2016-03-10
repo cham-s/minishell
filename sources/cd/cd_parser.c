@@ -9,7 +9,6 @@ void			getoptions(int ac, char **av)
 	flaire = 0;
 	i = 0;
 	i++;
-	//exit(3);
 	while (ac-- > 1 && av[i][0] == '-' && av[i][1] != '\0')
 	{
 		j = 1;

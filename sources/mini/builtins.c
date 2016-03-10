@@ -1,23 +1,75 @@
 #include "minishell.h"
 #include "cd.h"
 
+void			env_usage(char c)
+{
+	ft_putstr_fd("env: illegal options : -- ", 2);
+	ft_putchar_fd(c, 2);
+	ft_putendl_fd("", 2);
+	ft_putendl_fd("Usage: env [-i] [command]", 2);
+}
+
+int			check_options(int ac, char **av, int *f, int *start)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	i++;
+	while (ac-- > 1 && av[i][0] == '-' && av[i][1] != '\0')
+	{
+		j = 1;
+		if (ft_strcmp(av[i], "--") == 0)
+			break ;
+		while (av[i][j])
+		{
+			if (av[i][j] != 'i')
+			{
+				(*start)++;
+				env_usage(av[i][j]);
+				return (-1);
+			}
+			else
+				*f = 1;
+			j++;
+		}
+		(*start)++;
+		i++;
+	}
+	return (0);
+}
+
 void	start_env(t_dict *env, t_cmd *cmd)
 {
-	//do some stuff here like the real env
 	t_cmd	tcmd;
 	char	**s_line;
+	int		f;
+	int		start;
+	char	**env_tab;
 
+	f = 0;
+	start = 0;
 	if (cmd->ac == 1)
 	{
 		ft_putenv(env);
 		return ;
 	}
+	if (check_options(cmd->ac, cmd->av, &f, &start) == -1)
+		return ;
 	s_line = NULL;
-	s_line = cmd->av + 1;
-	if (initcmd(env, &tcmd, s_line) != -1)
-		launch_exec(&tcmd, env);
+	if (!f)
+		s_line = cmd->av + 1;
 	else
-		launch_exec(&tcmd, env);
+		s_line = cmd->av + start + (f ? 1 : 0);
+	if (initcmd(env, &tcmd, s_line) != -1)
+	{
+		env_tab = dict_to_tab(env);
+		if (!f)
+			launch_exec(&tcmd, env, env_tab);
+		else
+			launch_exec(&tcmd, env, NULL);
+		ft_delsplit(env_tab);
+	}
 }
 
 void	start_unsetenv(t_dict *env, t_cmd *cmd)
