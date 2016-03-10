@@ -45,6 +45,7 @@ int     main(int ac, char **av, char **env)
 	interpret_command(envc, &cmd);
 	dict_destroy(g_tokens);
 	dict_destroy(envc);
+	free(cmd.exepath);
 	return (0);
 }
 
