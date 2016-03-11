@@ -63,7 +63,7 @@ char			*replace_symbol(char *s, t_dict *env)
 		tmp = s;
 		s = ft_strjoin(envar, s + 2);
 		free(tmp);
-		//free(key);
+		free(key);
 	}
 	else if ((key = is_tokenstr(s)) && ft_strchr(s, '/') - s == 1)
 	{
@@ -76,7 +76,7 @@ char			*replace_symbol(char *s, t_dict *env)
 		tmp = s;
 		s = ft_strjoin(envar, s + 1);
 		free(tmp);
-		//free(key);
+		free(key);
 	}
 	else if ((key = is_tokenstr(s)))
 	{
@@ -89,7 +89,7 @@ char			*replace_symbol(char *s, t_dict *env)
 		tmp = s;
 		s = ft_strdup(envar);
 		free(tmp);
-		//free(key);
+		free(key);
 	}
 	return (s);
 }

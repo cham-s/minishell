@@ -29,10 +29,14 @@ int		ft_cd(int ac, char **av, t_dict *env)
 	{
 		oldpwd = getcwd(buff, PATH_MAX + 1);
 		if (chdir(directory) < 0)
+		{
+			free(directory);
 			return (-1);
+		}
 		ft_setenv("OLDPWD", (!oldpwd ? NULL : oldpwd), env, 1);
 		pwd = getcwd(buff, PATH_MAX + 1);
 		ft_setenv("PWD", (!oldpwd ? NULL : oldpwd), env, 1);
+		free(directory);
 		return (0);
 	}
 	return (-1);

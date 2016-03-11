@@ -7,10 +7,16 @@ void	interpret_command(t_dict *dictenv, t_cmd *cmd)
 	char *line;
 	char **split_line;
 	char **env;
+	char *prompt;
 
 	while (1)
 	{
-		ft_putstr("\x1B[33mminishell\033[0m$> ");
+		prompt = dict_search(dictenv, "PWD");
+		prompt = (dict_search(dictenv, "PWD") ? prompt : "minishell");
+		ft_putstr("\x1B[33m");
+		ft_putstr(prompt);
+		ft_putstr(" $> ");
+		ft_putstr("\033[0m");
 		if (get_next_line(0, &line) == 0)
 			exit(0);
 		env = dict_to_tab(dictenv);
@@ -39,13 +45,12 @@ int     main(int ac, char **av, char **env)
 	t_cmd	cmd;
 
 	signal(SIGINT, sig_handler);
-	signal(SIGSEGV, sig_handler);
 	t_dict *envc = envcpy(env);
 	init_tokens(g_tokens);
 	interpret_command(envc, &cmd);
 	dict_destroy(g_tokens);
 	dict_destroy(envc);
-	free(cmd.exepath);
+	cmd_free(&cmd);
 	return (0);
 }
 

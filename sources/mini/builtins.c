@@ -47,6 +47,7 @@ void	start_env(t_dict *env, t_cmd *cmd)
 	int		start;
 	char	**env_tab;
 
+	free(cmd->exepath);
 	f = 0;
 	start = 0;
 	if (cmd->ac == 1)
@@ -75,11 +76,13 @@ void	start_env(t_dict *env, t_cmd *cmd)
 void	start_unsetenv(t_dict *env, t_cmd *cmd)
 {
 	// check if there is more to add
+	free(cmd->exepath);
 	ft_unsetenv(cmd->av[1], env);
 }
 
 void	start_setenv(t_dict *env, t_cmd *cmd)
 {
+	free(cmd->exepath);
 	if (cmd->ac == 1)
 		ft_putendl_fd("setenv: too few arguments", 2);
 	else if (cmd->ac > 4)
@@ -94,6 +97,7 @@ void	start_setenv(t_dict *env, t_cmd *cmd)
 void	start_exit(t_dict *env, t_cmd *cmd)
 {
 	//test
+	free(cmd->exepath);
 	(void)env;
 	if (cmd->ac > 2)
 		ft_putendl_fd("exit: too many arguments", 2);
@@ -118,5 +122,6 @@ void	start_exit(t_dict *env, t_cmd *cmd)
 
 void	start_cd(t_dict *env, t_cmd *cmd)
 {
+	free(cmd->exepath);
 	ft_cd(cmd->ac, cmd->av, env);
 }
