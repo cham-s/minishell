@@ -6,7 +6,7 @@
 /*   By: cattouma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/28 11:09:25 by cattouma          #+#    #+#             */
-/*   Updated: 2016/03/07 15:22:00 by cattouma         ###   ########.fr       */
+/*   Updated: 2016/03/11 17:17:01 by cattouma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		ft_cd(int ac, char **av, t_dict *env)
 		}
 		ft_setenv("OLDPWD", (!oldpwd ? NULL : oldpwd), env, 1);
 		pwd = getcwd(buff, PATH_MAX + 1);
-		ft_setenv("PWD", (!oldpwd ? NULL : oldpwd), env, 1);
+		ft_setenv("PWD", (!pwd ? NULL : pwd), env, 1);
 		free(directory);
 		return (0);
 	}

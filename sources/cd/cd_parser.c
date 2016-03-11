@@ -36,25 +36,31 @@ void			getoptions(int ac, char **av)
 	}
 }
 
+int				check_solo_arg(t_dict *env, char **buffer)
+{
+	char *home;
+
+	home = dict_search(env, "HOME");
+	if (!home)
+	{
+		env_missing("HOME");
+		return (-1);
+	}
+	*buffer = ft_strdup(home);
+	return (0);
+}
+
 int				getdir(int ac, char **av, t_dict *env, char **buffer)
 {
 	int		i;
 	int		j;
 	int flaire;
+
 	flaire = 0;
 	i = 0;
 	i++;
 	if(!av[i])
-	{
-		// declare a home env var
-		if (!dict_search(env, "HOME"))
-		{
-			env_missing("HOME");
-			return (-1);
-		}
-		*buffer = ft_strdup(dict_search(env, "HOME"));
-		return (0);
-	}
+		return (check_solo_arg(env, buffer));
 	while (ac-- > 1 && av[i][0] == '-' && av[i][1] != '\0')
 	{
 		j = 1;
