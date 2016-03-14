@@ -56,15 +56,24 @@ char	**dict_to_tab(t_dict *env)
 	return (new);
 }
 
-void	free_tab(char **tab)
+void	ft_delsplit(char **split)
 {
-	char **tmp;
+	int i;
 
-	tmp = tab;
-	while (*tmp)
+	i = 0;
+	while (split[i])
 	{
-		free(*tmp);
-		tmp++;
+		free(split[i]);
+		i++;
 	}
-	free(tab);
+	free(split);
+}
+
+void	sig_handler(int signal)
+{
+	if (signal == SIGINT)
+	{
+		ft_putchar('\n');
+		ft_putstr("\x1B[33mminishell\033[0m$> ");
+	}
 }

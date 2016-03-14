@@ -40,12 +40,13 @@ char				*is_tokenstr(char *s);
 int					init_tokens(t_dict *tokens);
 void				env_missing(char *envkey);
 int					is_numeric(char *s);
-void				start_env(t_dict *env, t_cmd *cmd);
-void				start_unsetenv(t_dict *env, t_cmd *cmd);
-void				start_setenv(t_dict *env, t_cmd *cmd);
-void				start_exit(t_dict *env, t_cmd *cmd);
-void				start_cd(t_dict *env, t_cmd *cmd);
+int					start_env(t_dict *env, t_cmd *cmd);
+int					start_unsetenv(t_dict *env, t_cmd *cmd);
+int					start_setenv(t_dict *env, t_cmd *cmd);
+int					start_exit(t_dict *env, t_cmd *cmd);
+int					start_cd(t_dict *env, t_cmd *cmd);
 void				ft_delsplit(char **split);
 void				cmd_free(t_cmd *cmd);
+void				sig_handler(int signal);
 
 #endif

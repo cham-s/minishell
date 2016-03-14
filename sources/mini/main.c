@@ -38,23 +38,15 @@ void	interpret_command(t_dict *dictenv, t_cmd *cmd)
 	}
 }
 
-void	sig_handler(int signal)
-{
-	if (signal == SIGINT)
-	{
-		ft_putchar('\n');
-		ft_putstr("\x1B[33mminishell\033[0m$> ");
-	}
-}
-
 int     main(int ac, char **av, char **env)
 {
 	(void)ac;
 	(void)av;
 	t_cmd	cmd;
+	t_dict *envc;
 
 	signal(SIGINT, sig_handler);
-	t_dict *envc = envcpy(env);
+	envc = envcpy(env);
 	init_tokens(g_tokens);
 	interpret_command(envc, &cmd);
 	dict_destroy(g_tokens);
@@ -63,15 +55,3 @@ int     main(int ac, char **av, char **env)
 	return (0);
 }
 
-void	ft_delsplit(char **split)
-{
-	int i;
-
-	i = 0;
-	while (split[i])
-	{
-		free(split[i]);
-		i++;
-	}
-	free(split);
-}

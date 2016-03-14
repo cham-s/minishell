@@ -39,7 +39,7 @@ int			check_options(int ac, char **av, int *f, int *start)
 	return (0);
 }
 
-void	start_env(t_dict *env, t_cmd *cmd)
+int 	start_env(t_dict *env, t_cmd *cmd)
 {
 	t_cmd	tcmd;
 	char	**s_line;
@@ -53,10 +53,10 @@ void	start_env(t_dict *env, t_cmd *cmd)
 	if (cmd->ac == 1)
 	{
 		ft_putenv(env);
-		return ;
+		return (1);
 	}
 	if (check_options(cmd->ac, cmd->av, &f, &start) == -1)
-		return ;
+		return (1);
 	s_line = NULL;
 	if (!f)
 		s_line = cmd->av + 1;
@@ -71,16 +71,18 @@ void	start_env(t_dict *env, t_cmd *cmd)
 			launch_exec(&tcmd, env, NULL);
 		ft_delsplit(env_tab);
 	}
+	return (1);
 }
 
-void	start_unsetenv(t_dict *env, t_cmd *cmd)
+int		start_unsetenv(t_dict *env, t_cmd *cmd)
 {
 	// check if there is more to add
 	free(cmd->exepath);
 	ft_unsetenv(cmd->av[1], env);
+	return (1);
 }
 
-void	start_setenv(t_dict *env, t_cmd *cmd)
+int		start_setenv(t_dict *env, t_cmd *cmd)
 {
 	free(cmd->exepath);
 	if (cmd->ac == 1)
@@ -92,9 +94,10 @@ void	start_setenv(t_dict *env, t_cmd *cmd)
 			ft_setenv(cmd->av[1], cmd->av[2], env, ft_atoi(cmd->av[3]));
 		else
 			ft_setenv(cmd->av[1], cmd->av[2], env, 0);
+	return (1);
 }
 
-void	start_exit(t_dict *env, t_cmd *cmd)
+int 	start_exit(t_dict *env, t_cmd *cmd)
 {
 	//test
 	free(cmd->exepath);
@@ -103,31 +106,28 @@ void	start_exit(t_dict *env, t_cmd *cmd)
 		ft_putendl_fd("exit: too many arguments", 2);
 	else
 	{
+		ft_putendl("exit");
 		if (cmd->ac == 1)
-		{
-			ft_putendl("exit");
 			exit(0);
-		}
 		else
 		{
 			if (is_numeric(cmd->av[1]))
-			{
-				ft_putendl("exit");
 				exit(ft_atoi(cmd->av[1]));
-			}
 			else
 			{
-				ft_putstr_fd("exit: ", 2);
+				ft_putstr_fd("minishell: ", 2);
 				ft_putstr_fd(cmd->av[1], 2);
-				ft_putendl_fd(": not a numeric value", 2);
+				ft_putendl_fd(": numeric argument required", 2);
 				exit(-1);
 			}
 		}
 	}
+	return (1);
 }
 
-void	start_cd(t_dict *env, t_cmd *cmd)
+int		start_cd(t_dict *env, t_cmd *cmd)
 {
 	free(cmd->exepath);
 	ft_cd(cmd->ac, cmd->av, env);
+	return (1);
 }

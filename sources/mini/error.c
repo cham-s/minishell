@@ -19,7 +19,6 @@ int		is_numeric(char *s)
 	return (1);
 }
 
-//change the name of the cammand calling the error
 void	put_error(char *path, char *cmd)
 {
 	char		*message;
@@ -28,6 +27,8 @@ void	put_error(char *path, char *cmd)
 	if (access(path, F_OK))
 		message = "command not found";
 	else if (access(path, X_OK))
+		message = "Permission denied";
+	else
 		message = "Permission denied";
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(message, 2);

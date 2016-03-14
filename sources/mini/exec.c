@@ -13,7 +13,30 @@
 #include "minishell.h"
 #include "cd.h"
 
-void	launch_exec(t_cmd *cmd, t_dict *dictenv, char **env)
+static int		check_bltn(t_cmd *cmd, t_dict *dictenv)
+{
+	int is_blt;
+
+	is_blt = 0;
+	if (cmd->ac > 0)
+	{
+		if (!ft_strcmp(cmd->av[0], "env"))
+			is_blt = start_env(dictenv, cmd);
+		else if (!ft_strcmp(cmd->av[0], "setenv"))
+			is_blt = start_setenv(dictenv, cmd);
+		else if (!ft_strcmp(cmd->av[0], "unsetenv"))
+			is_blt = start_unsetenv(dictenv, cmd);
+		else if (!ft_strcmp(cmd->av[0], "cd"))
+			is_blt = start_cd(dictenv, cmd);
+		else if (!ft_strcmp(cmd->av[0], "exit"))
+			is_blt = start_exit(dictenv, cmd);
+		if (is_blt)
+			return (1);
+	}
+	return (0);
+}
+
+void			launch_exec(t_cmd *cmd, t_dict *dictenv, char **env)
 {
 	pid_t	child_pid;	
 	pid_t	t_pid = 0;	
@@ -21,34 +44,8 @@ void	launch_exec(t_cmd *cmd, t_dict *dictenv, char **env)
 
 	if (!dictenv)
 		return ;
-	if (cmd->ac > 0)
-	{
-		if (!ft_strcmp(cmd->av[0], "env"))
-		{
-			start_env(dictenv, cmd);
-			return ;
-		}
-		else if (!ft_strcmp(cmd->av[0], "setenv"))
-		{
-			start_setenv(dictenv, cmd);
-			return ;
-		}
-		else if (!ft_strcmp(cmd->av[0], "unsetenv"))
-		{
-			start_unsetenv(dictenv, cmd);
-			return ;
-		}
-		else if (!ft_strcmp(cmd->av[0], "cd"))
-		{
-			start_cd(dictenv, cmd);
-			return ;
-		}
-		else if (!ft_strcmp(cmd->av[0], "exit"))
-		{
-			start_exit(dictenv, cmd);
-			return ;
-		}
-	}
+	if (check_bltn(cmd, dictenv))
+		return ;
 	child_pid = fork();
 	if (child_pid == 0)
 	{
