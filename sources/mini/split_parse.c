@@ -46,50 +46,63 @@ static size_t	ft_strlenchar(const char *s)
 	return (i);
 }
 
-char			*replace_symbol(char *s, t_dict *env)
+int		slash_position(char *s)
 {
-	char	*key;
+	return (ft_strchr(s, '/') - s );
+}
+
+int		replace_s(char **s, t_dict *env, char **key, int s_pos)
+{
 	char	*tmp;
 	char	*envar;
 
-	if ((key = is_tokenstr(s)) && ft_strchr(s, '/') - s == 2)
+	envar = dict_search(env, dict_search(g_tokens, *key));
+	if (!envar)
 	{
-		if (!dict_search(env, dict_search(g_tokens, key)))
-		{
-			env_missing(dict_search(g_tokens, key));
-			return (s);
-		}
-		envar = dict_search(env, dict_search(g_tokens, key));
-		tmp = s;
-		s = ft_strjoin(envar, s + 2);
-		free(tmp);
-		free(key);
+		env_missing(dict_search(g_tokens, *key));
+		return (-1);
 	}
-	else if ((key = is_tokenstr(s)) && ft_strchr(s, '/') - s == 1)
+	tmp = *s;
+	*s = ft_strjoin(envar, *s + s_pos);
+	free(tmp);
+	free(*key);
+	return (0);
+}
+
+int		replace_all(char **s, t_dict *env, char **key)
+{
+	char	*tmp;
+	char	*envar;
+
+	envar = dict_search(env, dict_search(g_tokens, *key));
+	if (!envar)
 	{
-		if (!dict_search(env, dict_search(g_tokens, key)))
-		{
-			env_missing(dict_search(g_tokens, key));
-			return (s);
-		}
-		envar = dict_search(env, dict_search(g_tokens, key));
-		tmp = s;
-		s = ft_strjoin(envar, s + 1);
-		free(tmp);
-		free(key);
+		env_missing(dict_search(g_tokens, *key));
+		return (-1);
 	}
-	else if ((key = is_tokenstr(s)))
+	tmp = *s;
+	*s = ft_strdup(envar);
+	free(tmp);
+	free(*key);
+	return (0);
+}
+
+char			*replace_symbol(char *s, t_dict *env)
+{
+	char	*key;
+	int		slash_pos;
+
+	slash_pos = slash_position(s);
+	if ((key = is_tokenstr(s)))
 	{
-		if (!dict_search(env, dict_search(g_tokens, key)))
+		if (slash_pos == 2 || slash_pos == 1)
 		{
-			env_missing(dict_search(g_tokens, key));
-			return (s);
+			if (replace_s(&s, env, &key, slash_pos) == -1)
+				return (s);
 		}
-		envar = dict_search(env, dict_search(g_tokens, key));
-		tmp = s;
-		s = ft_strdup(envar);
-		free(tmp);
-		free(key);
+		else
+			if (replace_all(&s, env, &key) == -1)
+				return (s);
 	}
 	return (s);
 }
