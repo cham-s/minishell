@@ -104,15 +104,21 @@ void	start_exit(t_dict *env, t_cmd *cmd)
 	else
 	{
 		if (cmd->ac == 1)
+		{
+			ft_putendl("exit");
 			exit(0);
+		}
 		else
 		{
 			if (is_numeric(cmd->av[1]))
+			{
+				ft_putendl("exit");
 				exit(ft_atoi(cmd->av[1]));
+			}
 			else
 			{
-				ft_putendl_fd("exit: ", 2);
-				ft_putendl_fd(cmd->av[1], 2);
+				ft_putstr_fd("exit: ", 2);
+				ft_putstr_fd(cmd->av[1], 2);
 				ft_putendl_fd(": not a numeric value", 2);
 				exit(-1);
 			}

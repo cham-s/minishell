@@ -2,7 +2,7 @@
 
 int		ft_isnum(char c)
 {
-	return (c >= '0'|| c <= '9');
+	return (c >= '0' && c <= '9');
 }
 
 int		is_numeric(char *s)
