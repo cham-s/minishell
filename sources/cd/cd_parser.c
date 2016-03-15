@@ -1,36 +1,42 @@
 #include "cd.h"
 
+void			check_opts(char *str, int *flair)
+{
+	int i;
+
+	i = 1;
+	while (str[i])
+	{
+		if (OPTIN(CD_OPT, str[i]) == NULL)
+		{
+			*flair = 1;
+			break ;
+		}
+		else
+		{
+			if (str[i] == 'P' && !g_options.p)
+				g_options.p = 1;
+			else if (str[i] == 'L' && !g_options.l)
+				g_options.l = 1;
+		}
+		i++;
+	}
+}
+
 void			getoptions(int ac, char **av)
 {
 	int		i;
-	int		j;
-	int flaire;
+	int flair;
 
-	flaire = 0;
+	flair = 0;
 	i = 0;
 	i++;
 	while (ac-- > 1 && av[i][0] == '-' && av[i][1] != '\0')
 	{
-		j = 1;
 		if (ft_strcmp(av[i], "--") == 0)
 			break ;
-		while (av[i][j])
-		{
-			if (OPTIN(CD_OPT, av[i][j]) == NULL)
-			{
-				flaire = 1;
-				break ;
-			}
-			else
-			{
-				if (av[i][j] == 'P' && !g_options.p)
-					g_options.p = 1;
-				else if (av[i][j] == 'L' && !g_options.l)
-					g_options.l = 1;
-			}
-			j++;
-		}
-		if (flaire)
+		check_opts(av[i], &flair);
+		if (flair)
 			break ;
 		i++;
 	}
