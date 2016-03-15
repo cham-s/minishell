@@ -39,13 +39,24 @@ int			check_options(int ac, char **av, int *f, int *start)
 	return (0);
 }
 
+void	st_exec(t_cmd *tcmd, t_dict *env, int *f)
+{
+	char	**env_tab;
+
+	env_tab = dict_to_tab(env);
+	if (!*f)
+		launch_exec(tcmd, env, env_tab);
+	else
+		launch_exec(tcmd, env, NULL);
+	ft_delsplit(env_tab);
+}
+
 int 	start_env(t_dict *env, t_cmd *cmd)
 {
 	t_cmd	tcmd;
 	char	**s_line;
 	int		f;
 	int		start;
-	char	**env_tab;
 
 	free(cmd->exepath);
 	f = 0;
@@ -63,14 +74,7 @@ int 	start_env(t_dict *env, t_cmd *cmd)
 	else
 		s_line = cmd->av + start + (f ? 1 : 0);
 	if (initcmd(env, &tcmd, s_line) != -1)
-	{
-		env_tab = dict_to_tab(env);
-		if (!f)
-			launch_exec(&tcmd, env, env_tab);
-		else
-			launch_exec(&tcmd, env, NULL);
-		ft_delsplit(env_tab);
-	}
+		st_exec(&tcmd, env, &f);
 	return (1);
 }
 
@@ -99,9 +103,9 @@ int		start_setenv(t_dict *env, t_cmd *cmd)
 
 int 	start_exit(t_dict *env, t_cmd *cmd)
 {
-	//test
-	free(cmd->exepath);
 	(void)env;
+
+	free(cmd->exepath);
 	if (cmd->ac > 2)
 		ft_putendl_fd("exit: too many arguments", 2);
 	else

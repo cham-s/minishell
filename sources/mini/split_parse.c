@@ -46,53 +46,12 @@ static size_t	ft_strlenchar(const char *s)
 	return (i);
 }
 
-int		slash_position(char *s)
-{
-	return (ft_strchr(s, '/') - s );
-}
-
-int		replace_s(char **s, t_dict *env, char **key, int s_pos)
-{
-	char	*tmp;
-	char	*envar;
-
-	envar = dict_search(env, dict_search(g_tokens, *key));
-	if (!envar)
-	{
-		env_missing(dict_search(g_tokens, *key));
-		return (-1);
-	}
-	tmp = *s;
-	*s = ft_strjoin(envar, *s + s_pos);
-	free(tmp);
-	free(*key);
-	return (0);
-}
-
-int		replace_all(char **s, t_dict *env, char **key)
-{
-	char	*tmp;
-	char	*envar;
-
-	envar = dict_search(env, dict_search(g_tokens, *key));
-	if (!envar)
-	{
-		env_missing(dict_search(g_tokens, *key));
-		return (-1);
-	}
-	tmp = *s;
-	*s = ft_strdup(envar);
-	free(tmp);
-	free(*key);
-	return (0);
-}
-
 char			*replace_symbol(char *s, t_dict *env)
 {
 	char	*key;
 	int		slash_pos;
 
-	slash_pos = slash_position(s);
+	slash_pos = S_POSITION(s);
 	if ((key = is_tokenstr(s)))
 	{
 		if (slash_pos == 2 || slash_pos == 1)

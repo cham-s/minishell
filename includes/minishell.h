@@ -5,6 +5,7 @@
 # include <signal.h>
 # include "libft.h"
 # include "dict.h"
+# define S_POSITION(s) (ft_strchr(s, '/') - s)
 
 typedef struct		s_cmd
 {
@@ -48,5 +49,8 @@ int					start_cd(t_dict *env, t_cmd *cmd);
 void				ft_delsplit(char **split);
 void				cmd_free(t_cmd *cmd);
 void				sig_handler(int signal);
+void				interpret_command(t_dict *dictenv, t_cmd *cmd);
+int					replace_s(char **s, t_dict *env, char **key, int s_pos);
+int					replace_all(char **s, t_dict *env, char **key);
 
 #endif

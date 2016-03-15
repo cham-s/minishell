@@ -60,3 +60,45 @@ void			launch_exec(t_cmd *cmd, t_dict *dictenv, char **env)
 		return ;
 	}
 }
+
+void	display_prompt(t_dict *dictenv)
+{
+	char *prompt;
+
+	prompt = dict_search(dictenv, "PWD");
+	prompt = (dict_search(dictenv, "PWD") ? prompt : "minishell");
+	ft_putstr("\x1B[33m");
+	ft_putstr(prompt);
+	ft_putstr(" $> ");
+	ft_putstr("\033[0m");
+}
+
+void	interpret_command(t_dict *dictenv, t_cmd *cmd)
+{
+	char *line;
+	char **big_line;
+	char **split_line;
+	char **env;
+	int	i = 0;
+
+	while (1)
+	{
+		display_prompt(dictenv);
+		if (get_next_line(0, &line) == 0)
+			exit(0);
+		env = dict_to_tab(dictenv);
+		big_line = ft_strsplit(line, ';');
+		i = 0;
+		while (big_line[i])
+		{
+			split_line = split_parse(big_line[i], dictenv);
+			if (initcmd(dictenv, cmd, split_line) != -1)
+				launch_exec(cmd, dictenv, env);
+			ft_delsplit(split_line);
+			i++;
+		}
+		free(line);
+		ft_delsplit(big_line);
+		ft_delsplit(env);
+	}
+}
