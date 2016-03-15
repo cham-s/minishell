@@ -32,7 +32,6 @@ char				*join_with_chr(char *var, char *value, char c);
 int					initcmd(t_dict *env, t_cmd *cmd, char **line);
 void				put_error(char *path, char *cmd);
 void				launch_exec(t_cmd *cmd, t_dict *env, char **env_tab);
-void				free_tab(char **tab);
 char				**split_parse(char const *s, t_dict *env);
 int					ft_setenv(const char *key, const char *value, t_dict *env, int overwrite);
 int					ft_unsetenv(const char *key, t_dict *env);

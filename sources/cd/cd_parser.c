@@ -56,53 +56,65 @@ int				check_solo_arg(t_dict *env, char **buffer)
 	return (0);
 }
 
+int				add_to_buff(int ac, char **av, int *i, char ***buffer)
+{
+	if (ac > 3)
+	{
+		ft_putendl_fd("cd : too many arguments", 2);
+		return (-1);
+	}
+	if (!av[*i + 1])
+	{
+		if (check_dir(av[*i]) != -1)
+			**buffer = ft_strdup((av[*i]));
+	}
+	else
+	if (check_dir(av[*i + 1]) != -1)
+	{
+		**buffer = ft_strdup(av[*i + 1]);
+	}
+	return (0);
+}
+
+void			chk(char *str,int *ac, int *i, int *flair)
+{
+	int j;
+
+	j = 1;
+	while (str[j])
+	{
+		if (OPTIN(CD_OPT, str[j]) == NULL)
+		{
+			(*ac) += 1;
+			(*i) += 1;
+			*flair = 1;
+			break ;
+		}
+		j++;
+	}
+}
+
 int				getdir(int ac, char **av, t_dict *env, char **buffer)
 {
 	int		i;
-	int		j;
-	int flaire;
+	int flair;
 
-	flaire = 0;
+	flair = 0;
 	i = 0;
 	i++;
 	if(!av[i])
 		return (check_solo_arg(env, buffer));
 	while (ac-- > 1 && av[i][0] == '-' && av[i][1] != '\0')
 	{
-		j = 1;
 		if (ft_strcmp(av[i], "--") == 0)
 			break ;
-		while (av[i][j])
-		{
-			if (OPTIN(CD_OPT, av[i][j]) == NULL)
-			{
-				ac++;
-				i--;
-				flaire = 1;
-				break ;
-			}
-			j++;
-		}
-		if (flaire)
+		// while
+		chk(av[i], &ac, &i, &flair);
+		if (flair)
 			break ;
 		i++;
 	}
-	if (ac > 3)
-	{
-		ft_putendl_fd("cd : too many arguments", 2);
-		return (-1);
-	}
-	if (!av[i + 1])
-	{
-		if (check_dir(av[i]) != -1)
-			*buffer = ft_strdup((av[i]));
-	}
-	else
-	if (check_dir(av[i + 1]) != -1)
-	{
-		*buffer = ft_strdup(av[i + 1]);
-	}
-	return (0);
+	return add_to_buff(ac, av, &i, &buffer);
 }
 
 int			check_dir(char *dir)
