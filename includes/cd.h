@@ -21,5 +21,9 @@ int				getdir(int ac, char **av, t_dict *env, char **buffer);
 int				ft_cd(int ac, char **av, t_dict *env);
 void			initoptions(t_cdflag *options);
 int				check_dir(char *dir);
+void			check_opts(char *str, int *flair);
+void			getoptions(int ac, char **av);
+int				check_solo_arg(t_dict *env, char **buffer);
+int				add_to_buff(int ac, char **av, int *i, char ***buffer);
 
 #endif
