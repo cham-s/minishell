@@ -69,7 +69,7 @@ void	display_prompt(t_dict *dictenv)
 	prompt = (dict_search(dictenv, "PWD") ? prompt : "minishell");
 	ft_putstr("\x1B[33m");
 	ft_putstr(prompt);
-	ft_putstr(" $> ");
+	ft_putstr("$> ");
 	ft_putstr("\033[0m");
 }
 

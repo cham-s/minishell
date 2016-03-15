@@ -74,6 +74,6 @@ void	sig_handler(int signal)
 	if (signal == SIGINT)
 	{
 		ft_putchar('\n');
-		ft_putstr("\x1B[33mminishell\033[0m$> ");
+		ft_putstr("minishell - Ctrl-c -> ");
 	}
 }
