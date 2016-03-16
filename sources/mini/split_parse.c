@@ -6,7 +6,7 @@
 /*   By: cattouma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 10:33:18 by cattouma          #+#    #+#             */
-/*   Updated: 2016/03/11 18:44:16 by cattouma         ###   ########.fr       */
+/*   Updated: 2016/03/16 08:56:34 by cattouma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static size_t	to_allocate(const char *s)
 	{
 		while (ft_isspace(*s))
 			s++;
-		if ((*s && (!ft_isspace(*s))) && ((ft_isspace(*(s + 1))) || *(s + 1) == '\0'))
+		if ((*s && (!ft_isspace(*s))) && ((ft_isspace(*(s + 1)))
+					|| *(s + 1) == '\0'))
 			size++;
 		if (*s)
 			s++;
@@ -60,8 +61,10 @@ char			*replace_symbol(char *s, t_dict *env)
 				return (s);
 		}
 		else
+		{
 			if (replace_all(&s, env, &key) == -1)
 				return (s);
+		}
 	}
 	return (s);
 }

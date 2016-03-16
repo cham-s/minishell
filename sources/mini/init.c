@@ -6,13 +6,13 @@
 /*   By: cattouma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/05 09:57:10 by cattouma          #+#    #+#             */
-/*   Updated: 2016/03/05 11:08:24 by cattouma         ###   ########.fr       */
+/*   Updated: 2016/03/16 09:05:06 by cattouma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		init_tokens()
+int		init_tokens(void)
 {
 	g_tokens = dict_create();
 	if (!g_tokens)

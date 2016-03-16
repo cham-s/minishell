@@ -6,7 +6,7 @@
 /*   By: cattouma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 10:32:33 by cattouma          #+#    #+#             */
-/*   Updated: 2016/03/07 15:24:30 by cattouma         ###   ########.fr       */
+/*   Updated: 2016/03/16 08:42:01 by cattouma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,16 @@ int		ft_unsetenv(const char *key, t_dict *env)
 	return (0);
 }
 
-int		ft_setenv(const char *key, const char *value, t_dict *env, int overwrite)
+int		ft_setenv(const char *key, const char *value, t_dict *env, int overw)
 {
-	if ((ft_strchr(key, '=') && !value) || ft_strchr(key, '='))
+	if (ft_strchr(key, '='))
 	{
-		ft_putendl_fd("setenv: the '=' character appears in arguments", 2);
+		ft_putendl_fd("setenv: the '=' character appears as key", 2);
 		return (-1);
 	}
-	if (!key || key[0] == '\0' || !value || (overwrite != 0 && overwrite != 1))
+	if (!key || key[0] == '\0' || !value || (overw != 0 && overw != 1))
 		return (-1);
-
-	if (overwrite)
+	if (overw)
 	{
 		dict_delete(env, key);
 		dict_insert(env, key, value);

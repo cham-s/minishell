@@ -6,7 +6,7 @@
 /*   By: cattouma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/28 11:08:58 by cattouma          #+#    #+#             */
-/*   Updated: 2016/02/28 13:51:42 by cattouma         ###   ########.fr       */
+/*   Updated: 2016/03/16 08:50:20 by cattouma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,11 @@ void	sig_handler(int signal)
 		ft_putchar('\n');
 		ft_putstr("minishell - Ctrl-c -> ");
 	}
+}
+
+void	clean_malloc(char *line, char **big_line, char **env)
+{
+	free(line);
+	ft_delsplit(big_line);
+	ft_delsplit(env);
 }

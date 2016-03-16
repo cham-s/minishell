@@ -1,14 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cattouma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/03/16 08:52:33 by cattouma          #+#    #+#             */
+/*   Updated: 2016/03/16 08:53:36 by cattouma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 t_dict	*g_tokens;
 
-int     main(int ac, char **av, char **env)
+int		main(int ac, char **av, char **env)
 {
+	t_cmd	cmd;
+	t_dict	*envc;
+
 	(void)ac;
 	(void)av;
-	t_cmd	cmd;
-	t_dict *envc;
-
 	signal(SIGINT, sig_handler);
 	envc = envcpy(env);
 	init_tokens(g_tokens);
@@ -18,4 +30,3 @@ int     main(int ac, char **av, char **env)
 	cmd_free(&cmd);
 	return (0);
 }
-

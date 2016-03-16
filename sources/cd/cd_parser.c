@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd_parser.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cattouma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/03/16 08:59:55 by cattouma          #+#    #+#             */
+/*   Updated: 2016/03/16 09:02:39 by cattouma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cd.h"
 
-void			chk(char *str,int *ac, int *i, int *flair)
+static void		chk(char *str, int *ac, int *i, int *flair)
 {
 	int j;
 
@@ -10,7 +22,7 @@ void			chk(char *str,int *ac, int *i, int *flair)
 		if (OPTIN(CD_OPT, str[j]) == NULL)
 		{
 			(*ac) += 1;
-			(*i) += 1;
+			(*i) -= 1;
 			*flair = 1;
 			break ;
 		}
@@ -21,12 +33,12 @@ void			chk(char *str,int *ac, int *i, int *flair)
 int				getdir(int ac, char **av, t_dict *env, char **buffer)
 {
 	int		i;
-	int flair;
+	int		flair;
 
 	flair = 0;
 	i = 0;
 	i++;
-	if(!av[i])
+	if (!av[i])
 		return (check_solo_arg(env, buffer));
 	while (ac-- > 1 && av[i][0] == '-' && av[i][1] != '\0')
 	{
@@ -37,10 +49,10 @@ int				getdir(int ac, char **av, t_dict *env, char **buffer)
 			break ;
 		i++;
 	}
-	return add_to_buff(ac, av, &i, &buffer);
+	return (add_to_buff(ac, av, &i, &buffer));
 }
 
-int			check_dir(char *dir)
+int				check_dir(char *dir)
 {
 	char		*message;
 	struct stat	file;
@@ -56,7 +68,7 @@ int			check_dir(char *dir)
 		return (0);
 	else
 	{
-		ft_putstr_fd("cd: ", 2); 
+		ft_putstr_fd("cd: ", 2);
 		ft_putstr_fd(message, 2);
 		ft_putendl_fd(dir, 2);
 		return (-1);

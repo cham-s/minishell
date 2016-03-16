@@ -6,7 +6,7 @@
 /*   By: cattouma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 10:32:41 by cattouma          #+#    #+#             */
-/*   Updated: 2016/03/07 17:02:41 by cattouma         ###   ########.fr       */
+/*   Updated: 2016/03/16 08:49:28 by cattouma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,11 @@ static int		check_bltn(t_cmd *cmd, t_dict *dictenv)
 
 void			launch_exec(t_cmd *cmd, t_dict *dictenv, char **env)
 {
-	pid_t	child_pid;	
-	pid_t	t_pid = 0;	
+	pid_t	child_pid;
+	pid_t	t_pid;
 	int		status;
 
+	t_pid = 0;
 	if (!dictenv)
 		return ;
 	if (check_bltn(cmd, dictenv))
@@ -61,7 +62,7 @@ void			launch_exec(t_cmd *cmd, t_dict *dictenv, char **env)
 	}
 }
 
-void	display_prompt(t_dict *dictenv)
+void			display_prompt(t_dict *dictenv)
 {
 	char *prompt;
 
@@ -73,14 +74,15 @@ void	display_prompt(t_dict *dictenv)
 	ft_putstr("\033[0m");
 }
 
-void	interpret_command(t_dict *dictenv, t_cmd *cmd)
+void			interpret_command(t_dict *dictenv, t_cmd *cmd)
 {
-	char *line;
-	char **big_line;
-	char **split_line;
-	char **env;
-	int	i = 0;
+	char	*line;
+	char	**big_line;
+	char	**split_line;
+	char	**env;
+	int		i;
 
+	i = 0;
 	while (1)
 	{
 		display_prompt(dictenv);
@@ -97,8 +99,6 @@ void	interpret_command(t_dict *dictenv, t_cmd *cmd)
 			ft_delsplit(split_line);
 			i++;
 		}
-		free(line);
-		ft_delsplit(big_line);
-		ft_delsplit(env);
+		clean_malloc(line, big_line, env);
 	}
 }

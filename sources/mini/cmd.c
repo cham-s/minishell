@@ -6,7 +6,7 @@
 /*   By: cattouma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 10:43:16 by cattouma          #+#    #+#             */
-/*   Updated: 2016/03/07 14:35:25 by cattouma         ###   ########.fr       */
+/*   Updated: 2016/03/16 08:37:45 by cattouma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,8 @@ static int		loop_paths(t_cmd *cmd, t_dict *env)
 	return (0);
 }
 
-int		initcmd(t_dict *env, t_cmd *cmd, char **split_line)
+int				initcmd(t_dict *env, t_cmd *cmd, char **split_line)
 {
-
 	cmd->exepath = NULL;
 	cmd->av = split_line;
 	cmd->ac = ft_tablen(cmd->av);

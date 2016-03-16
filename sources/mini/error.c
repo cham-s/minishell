@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cattouma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/03/16 08:42:52 by cattouma          #+#    #+#             */
+/*   Updated: 2016/03/16 08:43:13 by cattouma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int		ft_isnum(char c)
@@ -39,5 +51,5 @@ void	put_error(char *path, char *cmd)
 void	env_missing(char *envkey)
 {
 	ft_putstr_fd(envkey, 2);
-	ft_putendl_fd(": environement variable missing, you can set it using setenv", 2);
+	ft_putendl_fd(": environement variable missing, use setenv", 2);
 }

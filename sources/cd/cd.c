@@ -6,16 +6,16 @@
 /*   By: cattouma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/28 11:09:25 by cattouma          #+#    #+#             */
-/*   Updated: 2016/03/11 17:17:01 by cattouma         ###   ########.fr       */
+/*   Updated: 2016/03/16 08:59:03 by cattouma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "cd.h"
 
-t_cdflag g_options;
+t_cdflag		g_options;
 
-int		ft_cd(int ac, char **av, t_dict *env)
+int				ft_cd(int ac, char **av, t_dict *env)
 {
 	char *directory;
 	char *oldpwd;
@@ -42,7 +42,7 @@ int		ft_cd(int ac, char **av, t_dict *env)
 	return (-1);
 }
 
-void			check_opts(char *str, int *flair)
+static void		check_opts(char *str, int *flair)
 {
 	int i;
 
@@ -68,7 +68,7 @@ void			check_opts(char *str, int *flair)
 void			getoptions(int ac, char **av)
 {
 	int		i;
-	int flair;
+	int		flair;
 
 	flair = 0;
 	i = 0;
@@ -112,8 +112,6 @@ int				add_to_buff(int ac, char **av, int *i, char ***buffer)
 	}
 	else
 	if (check_dir(av[*i + 1]) != -1)
-	{
 		**buffer = ft_strdup(av[*i + 1]);
-	}
 	return (0);
 }

@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cattouma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/03/16 08:54:45 by cattouma          #+#    #+#             */
+/*   Updated: 2016/03/16 08:55:33 by cattouma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int		is_tokenchr(char c)
 {
 	if (c == '-' || c == '~')
-		return (1); 
+		return (1);
 	return (0);
 }
 
@@ -49,7 +61,7 @@ char	*is_tokenstr(char *s)
 	{
 		if (is_tokenchr(s[0]))
 		{
-			return (s[0] == '-' ? ft_strdup("-"): ft_strdup("~"));
+			return (s[0] == '-' ? ft_strdup("-") : ft_strdup("~"));
 		}
 	}
 	else if (ft_strchr(s, '/') - s == 2)
