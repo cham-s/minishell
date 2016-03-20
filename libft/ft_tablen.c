@@ -16,6 +16,8 @@ size_t		ft_tablen(char **tab)
 {
 	size_t i;
 
+	if (!tab)
+		return (0);
 	i = 0;
 	while (tab[i])
 		i++;

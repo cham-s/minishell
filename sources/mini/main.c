@@ -23,7 +23,7 @@ int		main(int ac, char **av, char **env)
 	(void)av;
 	signal(SIGINT, sig_handler);
 	envc = envcpy(env);
-	init_tokens(g_tokens);
+	init_tokens();
 	interpret_command(envc, &cmd);
 	dict_destroy(g_tokens);
 	dict_destroy(envc);

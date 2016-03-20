@@ -51,6 +51,8 @@ void			launch_exec(t_cmd *cmd, t_dict *dictenv, char **env)
 	if (child_pid == 0)
 	{
 		execve(cmd->exepath, cmd->av, env);
+		if (!dict_search(dictenv, "PATH"))
+			env_missing("PATH");
 		put_error(cmd->exepath, cmd->av[0]);
 		exit(EXIT_FAILURE);
 	}

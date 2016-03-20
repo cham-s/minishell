@@ -21,20 +21,23 @@ static int		loop_paths(t_cmd *cmd, t_dict *env)
 	binlist = ft_strsplit(dict_search(env, "PATH"), ':');
 	i = 0;
 	exepath = NULL;
-	while (binlist[i])
+	if (binlist)
 	{
-		if (exepath)
-			free(exepath);
-		exepath = join_with_chr(binlist[i], (cmd)->av[0], '/');
-		if (!access(exepath, F_OK))
+		while (binlist[i])
 		{
-			cmd->exepath = ft_strdup(exepath);
-			break ;
+			if (exepath)
+				free(exepath);
+			exepath = join_with_chr(binlist[i], (cmd)->av[0], '/');
+			if (!access(exepath, F_OK))
+			{
+				cmd->exepath = ft_strdup(exepath);
+				break ;
+			}
+			i++;
 		}
-		i++;
+		ft_delsplit(binlist);
+		free(exepath);
 	}
-	ft_delsplit(binlist);
-	free(exepath);
 	return (0);
 }
 
