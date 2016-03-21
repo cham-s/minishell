@@ -52,7 +52,7 @@ int		ft_setenv(const char *key, const char *value, t_dict *env, int overw)
 		ft_putendl_fd("setenv: the '=' character appears as key", 2);
 		return (-1);
 	}
-	if (!key || key[0] == '\0' || !value || (overw != 0 && overw != 1))
+	if (!key || key[0] == '\0' || (overw != 0 && overw != 1))
 		return (-1);
 	if (overw)
 	{

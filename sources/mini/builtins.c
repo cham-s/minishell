@@ -29,7 +29,9 @@ int		start_setenv(t_dict *env, t_cmd *cmd)
 		ft_putendl_fd("setenv: too many arguments", 2);
 	else
 	{
-		if (cmd->ac == 4)
+		if (cmd->ac == 2)
+			ft_setenv(cmd->av[1], "", env, 1);
+		else if (cmd->ac == 4)
 			ft_setenv(cmd->av[1], cmd->av[2], env, ft_atoi(cmd->av[3]));
 		else
 			ft_setenv(cmd->av[1], cmd->av[2], env, 0);
