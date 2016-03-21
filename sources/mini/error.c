@@ -6,7 +6,7 @@
 /*   By: cattouma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 08:42:52 by cattouma          #+#    #+#             */
-/*   Updated: 2016/03/16 08:43:13 by cattouma         ###   ########.fr       */
+/*   Updated: 2016/03/21 14:27:09 by cattouma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,22 @@ int		is_numeric(char *s)
 	while (s[i])
 	{
 		if (!ft_isnum(s[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int		is_alphanumeric(const char *s)
+{
+	size_t i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i])
+	{
+		if (!ft_isalnum(s[i]))
 			return (0);
 		i++;
 	}

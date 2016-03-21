@@ -6,7 +6,7 @@
 /*   By: cattouma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 10:32:33 by cattouma          #+#    #+#             */
-/*   Updated: 2016/03/16 08:42:01 by cattouma         ###   ########.fr       */
+/*   Updated: 2016/03/21 14:28:07 by cattouma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ int		ft_unsetenv(const char *key, t_dict *env)
 
 int		ft_setenv(const char *key, const char *value, t_dict *env, int overw)
 {
-	if (ft_strchr(key, '='))
+	if (!is_alphanumeric(key))
 	{
-		ft_putendl_fd("setenv: the '=' character appears as key", 2);
+		ft_putendl_fd("setenv: name must contains alphanumeric characters", 2);
 		return (-1);
 	}
 	if (!key || key[0] == '\0' || (overw != 0 && overw != 1))

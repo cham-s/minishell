@@ -6,7 +6,7 @@
 /*   By: cattouma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 09:37:41 by cattouma          #+#    #+#             */
-/*   Updated: 2016/03/16 09:39:28 by cattouma         ###   ########.fr       */
+/*   Updated: 2016/03/21 14:26:29 by cattouma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ void				interpret_command(t_dict *dictenv, t_cmd *cmd);
 int					replace_s(char **s, t_dict *env, char **key, int s_pos);
 int					replace_all(char **s, t_dict *env, char **key);
 void				clean_malloc(char *line, char **big_line, char **env);
+int					is_alphanumeric(const char *s);
 
 #endif
